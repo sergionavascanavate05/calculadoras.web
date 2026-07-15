@@ -1,0 +1,58 @@
+{
+  "id": "calorias",
+  "icon": "heart",
+  "description": "Calcula las calorías quemadas según tu peso y la duración de la actividad.",
+  "fields": [
+    {
+      "id": "peso",
+      "label": "Peso (kg)",
+      "placeholder": "Ej: 70",
+      "min": 1,
+      "max": 500,
+      "step": "0.1",
+      "unit": "kg"
+    },
+    {
+      "id": "duracion",
+      "label": "Duración (min)",
+      "placeholder": "Ej: 30",
+      "min": 1,
+      "max": 1440,
+      "step": "1",
+      "unit": "min"
+    }
+  ],
+  "formulaLabel": "Calcular Calorías",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "Esta calculadora estima las calorías quemadas durante una actividad física basándose en tu peso corporal y el tiempo de ejercicio.",
+  "logic": {
+    "type": "formula",
+    "fields": [
+      "peso",
+      "duracion"
+    ],
+    "formula": "peso * 0.0175 * 5 * duracion",
+    "roundTo": 0,
+    "unit": " kcal"
+  },
+  "seo": {
+    "title": "Calculadora de Calorías",
+    "description": "Calcula las calorías que quemas según tu peso y actividad. Gratis y sin registro.",
+    "ogTitle": "Calculadora de Calorías - Calculadoras Online",
+    "ogDescription": "Calcula calorías quemadas al instante."
+  },
+  "editorial": [
+    {
+      "heading": "¿Cómo se calculan las calorías quemadas?",
+      "paragraphs": [
+        "La fórmula estima el gasto calórico usando el equivalente metabólico (MET). Multiplica tu peso en kg por 0.0175, luego por el valor MET de la actividad y por los minutos de ejercicio."
+      ]
+    },
+    {
+      "heading": "Factores que afectan al gasto calórico",
+      "paragraphs": [
+        "El gasto real varía según la intensidad del ejercicio, la composición corporal, la edad y el sexo. Esta calculadora ofrece una estimación general."
+      ]
+    }
+  ]
+}

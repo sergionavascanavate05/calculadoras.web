@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>IVA Form</title><link rel="stylesheet" href="../../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;padding:32px;display:flex;justify-content:center}
+.container{max-width:600px;width:100%}
+.page-heading{margin-bottom:32px}
+.page-heading h1{font-family:var(--font-display);font-weight:700;font-size:28px;color:var(--color-fg);letter-spacing:-0.02em}
+.page-heading p{margin-top:8px;color:var(--color-muted);font-size:14px;line-height:1.5}
+.form-card{border:1px solid var(--color-border);border-radius:12px;background:var(--color-surface);padding:24px}
+.form-card .field{margin-bottom:16px}
+.field label{display:block;font-size:14px;font-weight:500;color:var(--color-fg);margin-bottom:6px}
+.field input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-fg);font-size:14px;font-family:var(--font-body);outline:none;transition:all 0.15s}
+.field input:focus{border-color:var(--color-accent);box-shadow:0 0 0 2px color-mix(in oklch,var(--color-accent) 30%,transparent)}
+.field input::placeholder{color:color-mix(in oklch,var(--color-muted) 50%,transparent)}
+.segment-label{display:block;font-size:14px;font-weight:500;color:var(--color-fg);margin-bottom:8px}
+.segment-group{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.segment-btn{padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-muted);cursor:pointer;font-family:var(--font-body);transition:all 0.15s}
+.segment-btn:hover{color:var(--color-fg);border-color:color-mix(in oklch,var(--color-accent) 30%,transparent)}
+.segment-btn.active{background:var(--color-accent);color:white;border-color:var(--color-accent)}
+.mode-group{display:flex;gap:8px;margin-bottom:16px}
+.mode-btn{flex:1;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-muted);cursor:pointer;font-family:var(--font-body);transition:all 0.15s;text-align:center}
+.mode-btn:hover{color:var(--color-fg)}
+.mode-btn.active{background:var(--color-accent);color:white;border-color:var(--color-accent)}
+.actions{display:flex;gap:12px;margin-top:16px}
+.btn-primary{padding:10px 24px;border-radius:12px;background:var(--color-accent);color:white;border:0;font-size:14px;font-weight:500;font-family:var(--font-body);cursor:pointer;transition:background 0.2s}
+.btn-primary:hover{background:var(--color-accent-hover)}
+.btn-secondary{padding:10px 24px;border-radius:12px;border:1px solid var(--color-border);background:transparent;color:var(--color-muted);font-size:14px;font-weight:500;font-family:var(--font-body);cursor:pointer;transition:all 0.2s}
+.btn-secondary:hover{color:var(--color-fg);background:var(--color-border)}
+.result-card{margin-top:24px;border:1px solid var(--color-border);border-radius:12px;background:var(--color-surface);padding:24px;animation:slideUp 0.4s ease-out}
+.result-rows{display:flex;flex-direction:column;gap:4px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:8px;background:var(--color-bg)}
+.result-row .label{font-size:14px;color:var(--color-muted)}
+.result-row .value{font-family:var(--font-display);font-weight:600;color:var(--color-fg)}
+.result-row.highlighted{background:color-mix(in oklch,var(--color-accent) 10%,transparent);border:1px solid color-mix(in oklch,var(--color-accent) 20%,transparent)}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-heading">
+    <h1>Calculadora de IVA</h1>
+    <p>Calcula el IVA de cualquier importe al tipo general, reducido o superreducido. Puedes calcular el IVA incluido o añadirlo al importe base.</p>
+  </div>
+  <div class="form-card" data-od-id="iva-form">
+    <div class="field">
+      <label for="cantidad">Cantidad (&euro;)</label>
+      <input id="cantidad" type="number" step="0.01" min="0.01" placeholder="Ej: 100" />
+    </div>
+    <div class="segment-label">Tipo de IVA</div>
+    <div class="segment-group" id="tipoGroup">
+      <button class="segment-btn active" data-value="21">General (21%)</button>
+      <button class="segment-btn" data-value="10">Reducido (10%)</button>
+      <button class="segment-btn" data-value="4">Superreducido (4%)</button>
+    </div>
+    <div class="segment-label">Modo de cálculo</div>
+    <div class="mode-group" id="modeGroup">
+      <button class="mode-btn active" data-mode="anadir">Añadir IVA</button>
+      <button class="mode-btn" data-mode="incluir">IVA incluido</button>
+    </div>
+    <div class="actions">
+      <button class="btn-primary" id="calcBtn">Calcular IVA</button>
+      <button class="btn-secondary" id="resetBtn" style="display:none">Reiniciar</button>
+    </div>
+  </div>
+</div>
+<script>
+let tipoIVA=21,modo='anadir';
+document.querySelectorAll('#tipoGroup .segment-btn').forEach(b=>{
+  b.addEventListener('click',function(){
+    document.querySelectorAll('#tipoGroup .segment-btn').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');tipoIVA=parseInt(this.dataset.value);
+  });
+});
+document.querySelectorAll('#modeGroup .mode-btn').forEach(b=>{
+  b.addEventListener('click',function(){
+    document.querySelectorAll('#modeGroup .mode-btn').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');modo=this.dataset.mode;
+  });
+});
+document.getElementById('calcBtn').addEventListener('click',function(){
+  const c=parseFloat(document.getElementById('cantidad').value);
+  if(!c||c<=0)return alert('Introduce una cantidad válida mayor que 0');
+  const t=tipoIVA/100;
+  let sinIVA,conIVA,iva;
+  if(modo==='anadir'){iva=c*t;conIVA=c+iva;sinIVA=c}
+  else{sinIVA=c/(1+t);iva=c-sinIVA;conIVA=c}
+  const existing=document.querySelector('.result-card');
+  if(existing)existing.remove();
+  const card=document.createElement('div');card.className='result-card';
+  card.innerHTML='<div class="result-rows"><div class="result-row"><span class="label">Importe sin IVA</span><span class="value">'+sinIVA.toFixed(2)+' €</span></div><div class="result-row"><span class="label">IVA ('+tipoIVA+'%)</span><span class="value">'+iva.toFixed(2)+' €</span></div><div class="result-row highlighted"><span class="label">Importe con IVA</span><span class="value">'+conIVA.toFixed(2)+' €</span></div></div>';
+  document.querySelector('.container').appendChild(card);
+  document.getElementById('resetBtn').style.display='';
+});
+document.getElementById('resetBtn').addEventListener('click',function(){
+  document.getElementById('cantidad').value='';
+  const r=document.querySelector('.result-card');if(r)r.remove();
+  this.style.display='none';
+});
+</script>
+</body>
+</html>

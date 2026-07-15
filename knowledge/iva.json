@@ -1,0 +1,47 @@
+{
+  "id": "iva",
+  "icon": "chart",
+  "description": "Calcula el IVA de cualquier importe al tipo general, reducido o superreducido.",
+  "fields": [
+    { "id": "cantidad", "label": "Cantidad (€)", "placeholder": "Ej: 100", "min": 0.01, "max": 999999999, "step": "0.01", "unit": "€" }
+  ],
+  "selectors": [
+    { "id": "tipoIVA", "label": "Tipo de IVA", "options": [
+      { "value": 21, "label": "General (21%)" },
+      { "value": 10, "label": "Reducido (10%)" },
+      { "value": 4, "label": "Superreducido (4%)" }
+    ], "default": 21 },
+    { "id": "modo", "label": "Modo de cálculo", "options": [
+      { "value": "anadir", "label": "Añadir IVA" },
+      { "value": "incluir", "label": "IVA incluido" }
+    ], "default": "anadir" }
+  ],
+  "formulaLabel": "Calcular IVA",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "Calcula el IVA de cualquier importe al tipo general, reducido o superreducido. Puedes calcular el IVA incluido o añadirlo al importe base.",
+  "logic": {
+    "type": "iva",
+    "fields": ["cantidad"],
+    "selectors": ["tipoIVA", "modo"]
+  },
+  "seo": {
+    "title": "Calculadora de IVA",
+    "description": "Calcula el IVA de cualquier importe al tipo general (21%), reducido (10%) o superreducido (4%). Incluye o excluye el IVA automáticamente.",
+    "ogTitle": "Calculadora de IVA - Calculadoras Online",
+    "ogDescription": "Calcula el IVA de cualquier importe. Tipos: general 21%, reducido 10%, superreducido 4%."
+  },
+  "editorial": [
+    {
+      "heading": "Tipos de IVA en España",
+      "paragraphs": [
+        "En España existen tres tipos de IVA: el tipo general del 21% que se aplica a la mayoría de productos y servicios; el tipo reducido del 10% para alimentos, transporte y vivienda; y el tipo superreducido del 4% para pan, leche, frutas, medicamentos y libros."
+      ]
+    },
+    {
+      "heading": "¿Cómo se calcula?",
+      "paragraphs": [
+        "Para añadir el IVA: multiplica el importe base por el porcentaje de IVA y súmalo. Para obtener la base desde un importe con IVA incluido: divide entre 1 + el porcentaje en decimal."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Colores — Design System</title><link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);color:var(--color-fg);font-family:var(--font-body);padding:32px}
+h1{font-family:var(--font-display);font-size:var(--font-size-hero);font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
+.sub{color:var(--color-muted);font-size:var(--font-size-small);margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;max-width:1200px;margin:0 auto}
+.swatch-card{border-radius:var(--radius-xl);border:1px solid var(--color-border);overflow:hidden;background:var(--color-surface);transition:var(--transition-all)}
+.swatch-card:hover{border-color:var(--color-border-strong);box-shadow:var(--elevation-2);transform:translateY(-2px)}
+.swatch-preview{height:72px;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:var(--font-mono)}
+.swatch-info{padding:12px 14px}
+.swatch-info .name{font-size:13px;font-weight:600;margin-bottom:2px;font-family:var(--font-display)}
+.swatch-info .value{font-size:11px;color:var(--color-muted);font-family:var(--font-mono)}
+.swatch-info .usage{font-size:11px;color:var(--color-muted);margin-top:3px;padding-top:3px;border-top:1px solid var(--color-border)}
+.dark-section{margin-top:32px;padding:24px;border-radius:var(--radius-xl);border:1px solid var(--color-border);background:var(--color-surface)}
+.dark-section h2{font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:16px}
+.dark-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;padding:16px;border-radius:var(--radius-lg);background:var(--color-surface)}
+.dark-preview .mini{height:36px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:10px;font-family:var(--font-mono);padding:0 6px;text-align:center}
+.glass-demo{margin-top:24px;padding:20px;border-radius:var(--radius-xl);background:var(--glass-bg);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));border:1px solid var(--glass-border);box-shadow:var(--glass-shadow)}
+</style>
+</head>
+<body>
+<h1>Colores — Paleta Premium</h1>
+<p class="sub">OKLCH tokens actualizados con acento vibrante, jerarquía de superficie y modo glass.</p>
+<div class="grid">
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-bg);color:var(--color-muted)">--color-bg</div><div class="swatch-info"><div class="name">--color-bg</div><div class="value">oklch(98.5% 0.002 240)</div><div class="usage">Fondo de página</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-surface);border-bottom:1px solid var(--color-border);color:var(--color-muted)">--color-surface</div><div class="swatch-info"><div class="name">--color-surface</div><div class="value">oklch(100% 0 0)</div><div class="usage">Tarjetas, formularios</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-surface-alt);color:var(--color-muted)">--color-surface-alt</div><div class="swatch-info"><div class="name">--color-surface-alt</div><div class="value">oklch(97% 0.003 240)</div><div class="usage">Superficie alterna</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-fg);color:rgba(255,255,255,0.7)">--color-fg</div><div class="swatch-info"><div class="name">--color-fg</div><div class="value">oklch(15% 0.015 260)</div><div class="usage">Texto principal</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-muted);color:rgba(255,255,255,0.8)">--color-muted</div><div class="swatch-info"><div class="name">--color-muted</div><div class="value">oklch(52% 0.015 260)</div><div class="usage">Texto secundario</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-subtle);color:rgba(255,255,255,0.8)">--color-subtle</div><div class="swatch-info"><div class="name">--color-subtle</div><div class="value">oklch(70% 0.01 260)</div><div class="usage">Placeholder</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-border);color:var(--color-muted)">--color-border</div><div class="swatch-info"><div class="name">--color-border</div><div class="value">oklch(90% 0.005 260)</div><div class="usage">Borde por defecto</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-border-strong);color:rgba(255,255,255,0.6)">--color-border-strong</div><div class="swatch-info"><div class="name">--color-border-strong</div><div class="value">oklch(82% 0.008 260)</div><div class="usage">Borde hover</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-accent);color:white;font-weight:600">--color-accent</div><div class="swatch-info"><div class="name">--color-accent</div><div class="value">oklch(62% 0.22 265)</div><div class="usage">Acción principal</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-accent-hover);color:white">--color-accent-hover</div><div class="swatch-info"><div class="name">--color-accent-hover</div><div class="value">oklch(56% 0.24 265)</div><div class="usage">Hover botón</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-accent-light);color:var(--color-fg)">--color-accent-light</div><div class="swatch-info"><div class="name">--color-accent-light</div><div class="value">oklch(92% 0.06 265)</div><div class="usage">Selection highlight</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-error);color:white">--color-error</div><div class="swatch-info"><div class="name">--color-error</div><div class="value">oklch(52% 0.22 25)</div><div class="usage">Error de validación</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-success);color:white">--color-success</div><div class="swatch-info"><div class="name">--color-success</div><div class="value">oklch(55% 0.18 150)</div><div class="usage">Estado correcto</div></div></div>
+  <div class="swatch-card"><div class="swatch-preview" style="background:var(--color-warning);color:white">--color-warning</div><div class="swatch-info"><div class="name">--color-warning</div><div class="value">oklch(60% 0.18 80)</div><div class="usage">Advertencia</div></div></div>
+</div>
+
+<div class="glass-demo">
+  <p style="font-family:var(--font-display);font-weight:600;font-size:14px;margin-bottom:4px">Superficie Glass</p>
+  <p style="font-size:13px;color:var(--color-muted)">--glass-bg + --glass-blur + --glass-border + --glass-shadow</p>
+</div>
+
+<div class="dark-section">
+  <h2>Modo oscuro</h2>
+  <div class="dark-preview" style="background:oklch(10% 0.01 260)">
+    <div class="mini" style="background:oklch(10% 0.01 260);color:rgba(255,255,255,0.5)">--color-bg</div>
+    <div class="mini" style="background:oklch(14% 0.012 260);color:rgba(255,255,255,0.5)">--color-surface</div>
+    <div class="mini" style="background:oklch(17% 0.012 260);color:rgba(255,255,255,0.5)">--surface-alt</div>
+    <div class="mini" style="background:oklch(93% 0.005 260);color:rgba(0,0,0,0.5)">--color-fg</div>
+    <div class="mini" style="background:oklch(58% 0.01 260);color:rgba(0,0,0,0.5)">--color-muted</div>
+    <div class="mini" style="background:oklch(24% 0.008 260);color:rgba(255,255,255,0.5)">--color-border</div>
+    <div class="mini" style="background:oklch(65% 0.2 265);color:white">--color-accent</div>
+    <div class="mini" style="background:oklch(22% 0.08 265);color:rgba(255,255,255,0.5)">--accent-light</div>
+    <div class="mini" style="background:oklch(55% 0.2 25);color:white">--color-error</div>
+  </div>
+</div>
+</body>
+</html>

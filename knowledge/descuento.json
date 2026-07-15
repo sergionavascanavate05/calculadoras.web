@@ -1,0 +1,65 @@
+{
+  "id": "descuento",
+  "icon": "percent",
+  "description": "Calcula el precio final después de aplicar un descuento.",
+  "fields": [
+    {
+      "id": "precio",
+      "label": "Precio original (€)",
+      "placeholder": "Ej: 100",
+      "min": 0.01,
+      "max": 999999,
+      "step": "0.01",
+      "unit": "€"
+    },
+    {
+      "id": "descuento",
+      "label": "Descuento (%)",
+      "placeholder": "Ej: 20",
+      "min": 0,
+      "max": 100,
+      "step": "1",
+      "unit": "%"
+    }
+  ],
+  "formulaLabel": "Calcular Descuentos",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "Calcula cuánto pagarás después de aplicar un descuento. Ideal para compras y ofertas.",
+  "logic": {
+    "type": "formula",
+    "fields": [
+      "precio",
+      "descuento"
+    ],
+    "formula": "precio * (1 - descuento / 100)",
+    "roundTo": 2,
+    "unit": " €",
+    "extraResults": [
+      {
+        "label": "Ahorro",
+        "value": "precio * descuento / 100",
+        "unit": " €"
+      }
+    ]
+  },
+  "seo": {
+    "title": "Calculadora de Descuentos",
+    "description": "Calcula el precio final después de un descuento. Calculadora de descuentos gratuita.",
+    "ogTitle": "Calculadora de Descuentos - Calculadoras Online",
+    "ogDescription": "Calcula cuánto ahorras con un descuento."
+  },
+  "editorial": [
+    {
+      "heading": "¿Cómo calcular un descuento?",
+      "paragraphs": [
+        "Multiplica el precio original por el porcentaje de descuento y divide entre 100 para obtener el ahorro. Resta el ahorro del precio original para obtener el precio final."
+      ]
+    },
+    {
+      "heading": "Consejos de compra",
+      "paragraphs": [
+        "Comprueba siempre el precio final antes de comprar. A veces los descuentos parecen mayores de lo que realmente son."
+      ]
+    }
+  ]
+}

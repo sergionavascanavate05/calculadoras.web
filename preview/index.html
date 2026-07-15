@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design System Preview — Calculadoras Online</title>
+  <link rel="stylesheet" href="../colors_and_type.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--color-bg);
+      color: var(--color-fg);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      padding: 32px;
+    }
+    .preview-header {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+    .preview-header h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .preview-header p {
+      color: var(--color-muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    .manifest {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0 32px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .manifest a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-family: var(--font-body);
+      transition: all 0.15s;
+    }
+    .manifest a:hover {
+      color: var(--color-fg);
+      border-color: color-mix(in oklch, var(--color-accent) 30%, transparent);
+    }
+    .manifest a .badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+    .preview-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 800px) {
+      .preview-grid { grid-template-columns: 1fr; }
+      body { padding: 16px; }
+    }
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card h2 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .card h2 a {
+      color: var(--color-fg);
+      text-decoration: none;
+    }
+    .card h2 a:hover {
+      color: var(--color-accent);
+    }
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .swatch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--color-bg);
+    }
+    .swatch-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+    .swatch-info {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .swatch-info .name {
+      font-weight: 600;
+      color: var(--color-fg);
+    }
+    .swatch-info .value {
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .type-sample { margin-bottom: 24px; }
+    .type-sample .label {
+      font-size: 11px;
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      margin-bottom: 4px;
+    }
+    .type-display { font-family: var(--font-display); }
+    .type-body { font-family: var(--font-body); }
+    .type-mono { font-family: var(--font-mono); }
+
+    .component-card {
+      padding: 16px;
+      background: var(--color-bg);
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .component-card .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-muted);
+      margin-bottom: 8px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 12px;
+      background: var(--color-accent);
+      color: white;
+      border: 0;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn-primary:hover { background: var(--color-accent-hover); }
+    .btn-secondary {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--color-muted);
+      border: 1px solid var(--color-border);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-secondary:hover { color: var(--color-fg); background: var(--color-border); }
+
+    .demo-input {
+      width: 100%;
+      max-width: 280px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: var(--color-bg);
+      color: var(--color-fg);
+      font-size: 14px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: all 0.15s ease;
+    }
+    .demo-input:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-accent) 30%, transparent);
+    }
+    .demo-input::placeholder { color: color-mix(in oklch, var(--color-muted) 50%, transparent); }
+
+    .demo-card-link {
+      display: block;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      max-width: 320px;
+    }
+    .demo-card-link:hover {
+      border-color: color-mix(in oklch, var(--color-accent) 30%, transparent);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .demo-card-link .icon {
+      color: var(--color-accent);
+      display: block;
+      margin-bottom: 12px;
+    }
+    .demo-card-link h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--color-fg);
+      transition: color 0.2s ease;
+    }
+    .demo-card-link:hover h3 { color: var(--color-accent); }
+    .demo-card-link p {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+    .demo-card-link .cta {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .demo-result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: var(--color-bg);
+      margin-bottom: 4px;
+    }
+    .demo-result-row .label { font-size: 14px; color: var(--color-muted); }
+    .demo-result-row .value { font-family: var(--font-display); font-weight: 600; color: var(--color-fg); }
+    .demo-result-row.highlighted {
+      background: color-mix(in oklch, var(--color-accent) 10%, transparent);
+      border: 1px solid color-mix(in oklch, var(--color-accent) 20%, transparent);
+    }
+
+    .segmented-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .segmented-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid var(--color-border);
+      background: var(--color-bg);
+      color: var(--color-muted);
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.15s ease;
+    }
+    .segmented-btn:hover {
+      color: var(--color-fg);
+      border-color: color-mix(in oklch, var(--color-accent) 30%, transparent);
+    }
+    .segmented-btn.active {
+      background: var(--color-accent);
+      color: white;
+      border-color: var(--color-accent);
+    }
+
+    .ui-surface {
+      margin-bottom: 20px;
+    }
+    .ui-surface .surface-label {
+      font-size: 11px;
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      margin-bottom: 8px;
+    }
+    .ui-surface .surface-box {
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .ui-surface .surface-box.bg { background: var(--color-bg); border: 1px solid var(--color-border); }
+    .ui-surface .surface-box.surface { background: var(--color-surface); border: 1px solid var(--color-border); }
+    .ui-surface .surface-box.accent-bg { background: color-mix(in oklch, var(--color-accent) 10%, transparent); border: 1px solid color-mix(in oklch, var(--color-accent) 20%, transparent); }
+    .ui-surface .surface-box.featured { background: var(--color-accent); color: white; }
+    .ui-surface .surface-box.featured p { color: rgba(255,255,255,0.85); }
+    .ui-surface p { font-size: 14px; color: var(--color-muted); margin-top: 4px; }
+    .ui-surface .strong { font-weight: 600; color: var(--color-fg); }
+    .ui-surface .surface-box.featured .strong { color: white; }
+
+    .dark-toggle-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 12px 16px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .dark-toggle-bar span { font-size: 14px; color: var(--color-muted); }
+    .dark-toggle-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-muted);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: all 0.15s ease;
+    }
+    .dark-toggle-btn:hover { color: var(--color-fg); background: var(--color-border); }
+  </style>
+</head>
+<body>
+  <div class="dark-toggle-bar">
+    <span>Vista previa del sistema de diseño</span>
+    <button class="dark-toggle-btn" id="darkToggle" aria-label="Alternar modo oscuro">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.752 15.002A9.72 9.72 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+    </button>
+  </div>
+
+  <div class="preview-header">
+    <h1>Sistema de Diseño — Calculadoras Online</h1>
+    <p>Tokens visuales, componentes y superficies extraídos del proyecto fuente.</p>
+  </div>
+
+  <div class="manifest">
+    <a href="colors-primary.html">🎨 Colores <span class="badge">12 tokens</span></a>
+    <a href="typography-specimens.html">🔤 Tipografía <span class="badge">3 stacks</span></a>
+    <a href="spacing-tokens.html">📐 Espaciado <span class="badge">9 niveles</span></a>
+    <a href="components-buttons.html">🧩 Componentes <span class="badge">5 variantes</span></a>
+    <a href="brand-assets.html">🏷️ Brand <span class="badge">6 iconos</span></a>
+    <a href="radius-shadows.html">✨ Radios <span class="badge">3 tokens</span></a>
+  </div>
+
+  <div class="preview-grid">
+
+    <!-- Colors -->
+    <div class="card card-full" data-od-id="preview-colors">
+      <h2><a href="#preview-colors">🎨 Colores</a></h2>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-bg)"></div><div class="swatch-info"><div class="name">--color-bg</div><div class="value">oklch(99% 0.002 240)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-surface)"></div><div class="swatch-info"><div class="name">--color-surface</div><div class="value">oklch(100% 0 0)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-fg)"></div><div class="swatch-info"><div class="name">--color-fg</div><div class="value">oklch(18% 0.012 250)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-muted)"></div><div class="swatch-info"><div class="name">--color-muted</div><div class="value">oklch(54% 0.012 250)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-border)"></div><div class="swatch-info"><div class="name">--color-border</div><div class="value">oklch(92% 0.005 250)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-accent)"></div><div class="swatch-info"><div class="name">--color-accent</div><div class="value">oklch(58% 0.18 255)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-accent-hover)"></div><div class="swatch-info"><div class="name">--color-accent-hover</div><div class="value">oklch(52% 0.2 255)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-accent-light)"></div><div class="swatch-info"><div class="name">--color-accent-light</div><div class="value">oklch(90% 0.06 255)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-error)"></div><div class="swatch-info"><div class="name">--color-error</div><div class="value">oklch(55% 0.22 25)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-imc-normal)"></div><div class="swatch-info"><div class="name">--color-imc-normal</div><div class="value">oklch(55% 0.15 145)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-imc-warning)"></div><div class="swatch-info"><div class="name">--color-imc-warning</div><div class="value">oklch(60% 0.18 80)</div></div></div>
+        <div class="swatch"><div class="swatch-box" style="background:var(--color-imc-danger)"></div><div class="swatch-info"><div class="name">--color-imc-danger</div><div class="value">oklch(50% 0.22 25)</div></div></div>
+      </div>
+    </div>
+
+    <!-- Typography -->
+    <div class="card" data-od-id="preview-typography">
+      <h2><a href="#preview-typography">🔤 Tipografía</a></h2>
+      <div class="type-sample">
+        <div class="label">--font-display (Display)</div>
+        <div class="type-display" style="font-size:36px;font-weight:700;letter-spacing:-0.02em">Calculadoras Online</div>
+        <div class="type-display" style="font-size:28px;font-weight:700;letter-spacing:-0.02em;margin-top:8px">Calculadora de IMC</div>
+        <div class="type-display" style="font-size:18px;font-weight:600;margin-top:8px">Sección de blog</div>
+      </div>
+      <div class="type-sample">
+        <div class="label">--font-body (Body)</div>
+        <div style="font-size:16px;line-height:1.625">Herramientas gratuitas para calcular IMC, IVA y más. Rápidas, precisas y sin registro.</div>
+        <div style="font-size:14px;line-height:1.625;margin-top:8px;color:var(--color-muted)">El Índice de Masa Corporal es un indicador simple de la relación entre el peso y la talla.</div>
+      </div>
+      <div class="type-sample">
+        <div class="label">--font-mono (Mono)</div>
+        <div class="type-mono" style="font-size:13px">SF Mono · 0123456789</div>
+      </div>
+    </div>
+
+    <!-- Spacing & Radius -->
+    <div class="card" data-od-id="preview-spacing">
+      <h2><a href="#preview-spacing">📐 Espaciado y radios</a></h2>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--color-muted);font-family:var(--font-mono);width:80px">--space-2</span><div style="height:8px;width:60px;background:var(--color-accent);border-radius:2px"></div><span style="font-size:11px;color:var(--color-muted)">8px</span></div>
+        <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--color-muted);font-family:var(--font-mono);width:80px">--space-4</span><div style="height:8px;width:120px;background:var(--color-accent);border-radius:2px"></div><span style="font-size:11px;color:var(--color-muted)">16px</span></div>
+        <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--color-muted);font-family:var(--font-mono);width:80px">--space-6</span><div style="height:8px;width:180px;background:var(--color-accent);border-radius:2px"></div><span style="font-size:11px;color:var(--color-muted)">24px</span></div>
+        <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--color-muted);font-family:var(--font-mono);width:80px">--space-8</span><div style="height:8px;width:240px;background:var(--color-accent);border-radius:2px"></div><span style="font-size:11px;color:var(--color-muted)">32px</span></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:16px"><span style="font-size:11px;color:var(--color-muted);font-family:var(--font-mono);width:80px">--radius-md</span><div style="width:40px;height:40px;border:2px solid var(--color-accent);border-radius:8px"></div><span style="font-size:11px;color:var(--color-muted)">8px</span></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span style="font-size:11px;color:var(--color-muted);font-family:var(--font-mono);width:80px">--radius-lg</span><div style="width:40px;height:40px;border:2px solid var(--color-accent);border-radius:12px"></div><span style="font-size:11px;color:var(--color-muted)">12px</span></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span style="font-size:11px;color:var(--color-muted);font-family:var(--font-mono);width:80px">--radius-full</span><div style="width:40px;height:40px;border:2px solid var(--color-accent);border-radius:9999px"></div><span style="font-size:11px;color:var(--color-muted)">9999px</span></div>
+      </div>
+    </div>
+
+    <!-- Components -->
+    <div class="card" data-od-id="preview-components">
+      <h2><a href="#preview-components">🧩 Componentes</a></h2>
+
+      <div class="component-card">
+        <div class="label">Botón primario</div>
+        <button class="btn-primary">Calcular IMC</button>
+      </div>
+
+      <div class="component-card">
+        <div class="label">Botón secundario</div>
+        <button class="btn-secondary">Reiniciar</button>
+      </div>
+
+      <div class="component-card">
+        <div class="label">Botón segmentado (tipo IVA)</div>
+        <div class="segmented-group">
+          <button class="segmented-btn active">General (21%)</button>
+          <button class="segmented-btn">Reducido (10%)</button>
+          <button class="segmented-btn">Superreducido (4%)</button>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="label">Input</div>
+        <input class="demo-input" placeholder="Ej: 70" />
+      </div>
+
+      <div class="component-card">
+        <div class="label">Result row</div>
+        <div class="demo-result-row"><span class="label">Tu IMC</span><span class="value">22.4 kg/m²</span></div>
+        <div class="demo-result-row"><span class="label">Clasificación</span><span class="value">Normal</span></div>
+        <div class="demo-result-row highlighted"><span class="label">Importe con IVA</span><span class="value">121.00 €</span></div>
+      </div>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="card" data-od-id="preview-calculator-card">
+      <h2><a href="#preview-calculator-card">📇 CalculatorCard</a></h2>
+      <a class="demo-card-link" href="#">
+        <span class="icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+        </span>
+        <h3>Calculadora de IMC</h3>
+        <p>Calcula tu Índice de Masa Corporal y descubre tu peso saludable según la OMS.</p>
+        <span class="cta">Calcular ahora &rarr;</span>
+      </a>
+    </div>
+
+    <!-- UI Surfaces -->
+    <div class="card card-full" data-od-id="preview-surfaces">
+      <h2><a href="#preview-surfaces">🖼️ Superficies aplicadas</a></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="ui-surface">
+          <div class="surface-label">Page background (--color-bg)</div>
+          <div class="surface-box bg"><span class="strong">Fondo de página</span><p>Color base del lienzo</p></div>
+        </div>
+        <div class="ui-surface">
+          <div class="surface-label">Card surface (--color-surface)</div>
+          <div class="surface-box surface"><span class="strong">Tarjeta de contenido</span><p>Formularios, cards, resultados</p></div>
+        </div>
+        <div class="ui-surface">
+          <div class="surface-label">Accent background (10%)</div>
+          <div class="surface-box accent-bg"><span class="strong">Resultado destacado</span><p>Fila de resultado con IVA total</p></div>
+        </div>
+        <div class="ui-surface">
+          <div class="surface-label">Accent solid (--color-accent)</div>
+          <div class="surface-box featured"><span class="strong">Botón CTA</span><p>Acción principal del formulario</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      var btn = document.getElementById('darkToggle');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        document.documentElement.classList.toggle('dark');
+      });
+    })();
+  </script>
+</body>
+</html>

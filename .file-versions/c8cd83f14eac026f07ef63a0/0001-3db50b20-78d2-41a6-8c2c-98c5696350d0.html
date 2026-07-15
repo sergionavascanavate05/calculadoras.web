@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Brand assets — Design System</title><link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);color:var(--color-fg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;padding:32px;max-width:900px;margin:0 auto}
+h1{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
+.sub{color:var(--color-muted);font-size:14px;margin-bottom:32px}
+.section{margin-bottom:32px;padding:24px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface)}
+.section h2{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--color-border)}
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+.icon-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-radius:8px;background:var(--color-bg);border:1px solid var(--color-border)}
+.icon-card .icon{color:var(--color-accent);width:36px;height:36px;display:grid;place-items:center}
+.icon-card .icon svg{width:28px;height:28px}
+.icon-card .label{font-size:11px;font-family:var(--font-mono);color:var(--color-muted)}
+.icon-card .source{font-size:10px;color:var(--color-muted)}
+.brand-row{display:flex;align-items:center;gap:16px;padding:16px;border-radius:12px;background:var(--color-bg);border:1px solid var(--color-border);margin-bottom:12px}
+.brand-row .logo-text{font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--color-fg)}
+.brand-row .logo-mark{color:var(--color-accent);font-size:22px;font-weight:700}
+.brand-row .meta{font-size:13px;color:var(--color-muted)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+td{padding:8px;border-bottom:1px solid var(--color-border);vertical-align:top}
+td:first-child{font-family:var(--font-mono);font-size:11px;color:var(--color-muted);width:140px;white-space:nowrap}
+td:last-child{color:var(--color-muted)}
+</style>
+</head>
+<body>
+<h1>🏷️ Brand Assets</h1>
+<p class="sub">Identidad visual, iconos SVG y logotipo extraídos del proyecto fuente.</p>
+
+<div class="section">
+  <h2>Logotipo</h2>
+  <div class="brand-row">
+    <div><span class="logo-mark">#</span> <span class="logo-text">Calculadoras</span></div>
+    <div class="meta">· <code>#</code> en accent (#4a7cf7) · SF Pro Display · 18px semibold</div>
+  </div>
+  <div class="source" style="font-size:12px;color:var(--color-muted)">Fuente: <code>components/Header.tsx</code> — línea 23</div>
+</div>
+
+<div class="section">
+  <h2>Iconos SVG — assets/</h2>
+  <div class="icon-grid">
+    <div class="icon-card"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div><div class="label">icon-imc.svg</div><div class="source">assets/icon-imc.svg</div></div>
+    <div class="icon-card"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-6"/></svg></div><div class="label">icon-iva.svg</div><div class="source">assets/icon-iva.svg</div></div>
+    <div class="icon-card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.752 15.002A9.72 9.72 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg></div><div class="label">icon-moon.svg</div><div class="source">assets/icon-moon.svg</div></div>
+    <div class="icon-card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg></div><div class="label">icon-sun.svg</div><div class="source">assets/icon-sun.svg</div></div>
+    <div class="icon-card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></div><div class="label">icon-hamburger.svg</div><div class="source">assets/icon-hamburger.svg</div></div>
+    <div class="icon-card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M6 6l12 12"/></svg></div><div class="label">icon-close.svg</div><div class="source">assets/icon-close.svg</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Identidad de marca</h2>
+  <table>
+    <tr><td>Nombre</td><td>Calculadoras Online</td></tr>
+    <tr><td>Tagline</td><td>Herramientas gratuitas para calcular IMC, IVA y más.</td></tr>
+    <tr><td>URL canónica</td><td>https://calculadoras-online.com</td></tr>
+    <tr><td>Locale</td><td>es-ES</td></tr>
+    <tr><td>Fuente (display)</td><td>SF Pro Display / -apple-system</td></tr>
+    <tr><td>Fuente (body)</td><td>SF Pro Text / -apple-system</td></tr>
+    <tr><td>Color acento</td><td>oklch(58% 0.18 255) · #4a7cf7 (azul)</td></tr>
+    <tr><td>Modo oscuro</td><td>Sí — clase .dark + localStorage</td></tr>
+    <tr><td>Framework</td><td>Next.js 14 + TypeScript + Tailwind CSS 3</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h2>SEO & Metadatos</h2>
+  <table>
+    <tr><td>Schema.org</td><td>WebSite con SearchAction (app/layout.tsx)</td></tr>
+    <tr><td>OpenGraph</td><td>Título, descripción, locale es_ES (app/layout.tsx)</td></tr>
+    <tr><td>Twitter Card</td><td>summary_large_image (app/layout.tsx)</td></tr>
+    <tr><td>Robots</td><td>index, follow (app/robots.ts)</td></tr>
+    <tr><td>Sitemap</td><td>app/sitemap.ts</td></tr>
+    <tr><td>AdSense</td><td>ca-pub-XXXXXXXXXXXXXX (app/layout.tsx, components/AdUnit.tsx)</td></tr>
+    <tr><td>ads.txt</td><td>public/ads.txt</td></tr>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UI Kit — Calculadoras Online</title>
+  <link rel="stylesheet" href="../../colors_and_type.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--color-bg);
+      color: var(--color-fg);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      padding: 32px;
+    }
+    .kit-header { max-width: 1200px; margin: 0 auto 40px; }
+    .kit-header h1 { font-family: var(--font-display); font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+    .kit-header p { color: var(--color-muted); margin-top: 8px; font-size: 14px; }
+    .kit-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 800px) { .kit-grid { grid-template-columns: 1fr; } body { padding: 16px; } }
+    .kit-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .kit-card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .kit-card-header h2 { font-family: var(--font-display); font-size: 15px; font-weight: 600; }
+    .kit-card-header .badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+    .kit-card-body {
+      padding: 20px;
+      min-height: 100px;
+    }
+    .kit-card-body iframe {
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+    }
+    .kit-card-body .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      color: var(--color-muted);
+      font-size: 14px;
+      text-align: center;
+    }
+    .kit-card-body .placeholder a {
+      color: var(--color-accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="kit-header">
+    <h1>UI Kit Aplicado — Calculadoras Online</h1>
+    <p>Componentes de interfaz extraídos del proyecto fuente con tokens reales.</p>
+  </div>
+
+  <div class="kit-grid">
+    <div class="kit-card" data-od-id="kit-header">
+      <div class="kit-card-header"><h2>Header</h2><span class="badge">componente</span></div>
+      <div class="kit-card-body">
+        <div class="placeholder">
+          <a href="header.html">Abrir Header →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="kit-card" data-od-id="kit-footer">
+      <div class="kit-card-header"><h2>Footer</h2><span class="badge">componente</span></div>
+      <div class="kit-card-body">
+        <div class="placeholder">
+          <a href="footer.html">Abrir Footer →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="kit-card" data-od-id="kit-calculator-card">
+      <div class="kit-card-header"><h2>CalculatorCard</h2><span class="badge">componente</span></div>
+      <div class="kit-card-body">
+        <div class="placeholder">
+          <a href="calculator-card.html">Abrir CalculatorCard →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="kit-card" data-od-id="kit-imc-form">
+      <div class="kit-card-header"><h2>Formulario IMC</h2><span class="badge">página</span></div>
+      <div class="kit-card-body">
+        <div class="placeholder">
+          <a href="imc-form.html">Abrir IMC Form →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="kit-card" data-od-id="kit-iva-form">
+      <div class="kit-card-header"><h2>Formulario IVA</h2><span class="badge">página</span></div>
+      <div class="kit-card-body">
+        <div class="placeholder">
+          <a href="iva-form.html">Abrir IVA Form →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="kit-card" data-od-id="kit-blog-card">
+      <div class="kit-card-header"><h2>Blog Card</h2><span class="badge">componente</span></div>
+      <div class="kit-card-body">
+        <div class="placeholder">
+          <a href="blog-card.html">Abrir Blog Card →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="kit-card" data-od-id="kit-not-found">
+      <div class="kit-card-header"><h2>404</h2><span class="badge">página</span></div>
+      <div class="kit-card-body">
+        <div class="placeholder">
+          <a href="not-found.html">Abrir 404 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

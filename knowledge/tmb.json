@@ -1,0 +1,117 @@
+{
+  "id": "tmb",
+  "icon": "bar",
+  "description": "Calcula tu tasa metabólica basal y descubre tu peso saludable según la OMS.",
+  "fields": [
+    {
+      "id": "peso",
+      "label": "Peso (kg)",
+      "placeholder": "Ej: 70",
+      "min": 1,
+      "max": 500,
+      "step": "0.1",
+      "unit": "kg"
+    },
+    {
+      "id": "altura",
+      "label": "Altura (cm)",
+      "placeholder": "Ej: 175",
+      "min": 1,
+      "max": 300,
+      "step": "0.5",
+      "unit": "cm"
+    }
+  ],
+  "formulaLabel": "Calcular Tasa Metabólica Basal",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "El tasa metabólica basal es una medida que relaciona el peso y la altura para estimar si tu peso se encuentra dentro de un rango saludable.",
+  "logic": {
+    "type": "formula",
+    "fields": [
+      "peso",
+      "altura"
+    ],
+    "formula": "peso / ((altura / 100) ** 2)",
+    "roundTo": 1,
+    "unit": "",
+    "classification": {
+      "field": "altura",
+      "ranges": [
+        {
+          "max": 16,
+          "label": "Delgadez severa",
+          "color": "oklch(55% 0.2 30)"
+        },
+        {
+          "max": 17,
+          "label": "Delgadez moderada",
+          "color": "oklch(60% 0.18 40)"
+        },
+        {
+          "max": 18.5,
+          "label": "Delgadez leve",
+          "color": "oklch(65% 0.15 50)"
+        },
+        {
+          "max": 25,
+          "label": "Normal",
+          "color": "oklch(55% 0.15 145)"
+        },
+        {
+          "max": 30,
+          "label": "Sobrepeso",
+          "color": "oklch(60% 0.18 80)"
+        },
+        {
+          "max": 35,
+          "label": "Obesidad grado I",
+          "color": "oklch(55% 0.2 30)"
+        },
+        {
+          "max": 40,
+          "label": "Obesidad grado II",
+          "color": "oklch(50% 0.22 25)"
+        },
+        {
+          "max": "Infinity",
+          "label": "Obesidad grado III",
+          "color": "oklch(45% 0.25 20)"
+        }
+      ]
+    },
+    "extraResults": [
+      {
+        "label": "Peso saludable mínimo",
+        "value": "18.5 * ((altura / 100) ** 2)",
+        "description": "Para IMC 18.5",
+        "unit": " kg"
+      },
+      {
+        "label": "Peso saludable máximo",
+        "value": "24.9 * ((altura / 100) ** 2)",
+        "description": "Para IMC 24.9",
+        "unit": " kg"
+      }
+    ]
+  },
+  "seo": {
+    "title": "Calculadora de Tasa Metabólica Basal",
+    "description": "Calcula tu tasa metabólica basal gratis. Descubre si tu peso es saludable según la clasificación de la OMS.",
+    "ogTitle": "Calculadora de Tasa Metabólica Basal - Calculadoras Online",
+    "ogDescription": "Calcula tu tasa metabólica basal gratis. Clasificación OMS, peso saludable y rango recomendado."
+  },
+  "editorial": [
+    {
+      "heading": "¿Qué es el tasa metabólica basal?",
+      "paragraphs": [
+        "El Índice de Masa Corporal es un indicador simple de la relación entre el peso y la talla. Se utiliza frecuentemente para identificar problemas de peso en adultos. La Organización Mundial de la Salud (OMS) establece las categorías: bajo peso (&lt;18.5), normal (18.5-24.9), sobrepeso (25-29.9) y obesidad (&ge;30)."
+      ]
+    },
+    {
+      "heading": "Limitaciones",
+      "paragraphs": [
+        "El tasa metabólica basal no mide grasa corporal directamente. Atletas con mucha masa muscular pueden tener un tasa metabólica basal alto sin tener exceso de grasa. Consulta siempre a un profesional de la salud para una evaluación completa."
+      ]
+    }
+  ]
+}

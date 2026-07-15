@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Componentes — Design System</title><link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);color:var(--color-fg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;padding:32px;max-width:900px;margin:0 auto}
+h1{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
+.sub{color:var(--color-muted);font-size:14px;margin-bottom:32px}
+.section{margin-bottom:32px;padding:24px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface)}
+.section h2{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--color-border)}
+.component-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px;padding:12px;border-radius:8px;background:var(--color-bg)}
+.component-row:last-child{margin-bottom:0}
+.source{font-size:12px;color:var(--color-muted);margin-top:4px}
+.source code{font-family:var(--font-mono);font-size:11px;background:var(--color-accent-light);padding:1px 6px;border-radius:4px}
+.btn-primary{padding:10px 24px;border-radius:12px;background:var(--color-accent);color:white;border:0;font-size:14px;font-weight:500;font-family:var(--font-body);cursor:pointer;transition:background 0.2s}
+.btn-primary:hover{background:var(--color-accent-hover)}
+.btn-primary:active{transform:scale(0.98)}
+.btn-secondary{padding:10px 24px;border-radius:12px;border:1px solid var(--color-border);background:transparent;color:var(--color-muted);font-size:14px;font-weight:500;font-family:var(--font-body);cursor:pointer;transition:all 0.2s}
+.btn-secondary:hover{color:var(--color-fg);background:var(--color-border)}
+.btn-segment{padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-muted);cursor:pointer;font-family:var(--font-body);transition:all 0.15s}
+.btn-segment:hover{color:var(--color-fg);border-color:color-mix(in oklch,var(--color-accent) 30%,transparent)}
+.btn-segment.active{background:var(--color-accent);color:white;border-color:var(--color-accent)}
+.btn-mode{flex:1;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-muted);cursor:pointer;font-family:var(--font-body);transition:all 0.15s;text-align:center}
+.btn-mode:hover{color:var(--color-fg)}
+.btn-mode.active{background:var(--color-accent);color:white;border-color:var(--color-accent)}
+.demo-input{width:100%;max-width:260px;padding:10px 12px;border-radius:8px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-fg);font-size:14px;font-family:var(--font-body);outline:none;transition:all 0.15s}
+.demo-input:focus{border-color:var(--color-accent);box-shadow:0 0 0 2px color-mix(in oklch,var(--color-accent) 30%,transparent)}
+.demo-input::placeholder{color:color-mix(in oklch,var(--color-muted) 50%,transparent)}
+.demo-card{display:block;padding:24px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface);text-decoration:none;max-width:320px;transition:all 0.2s}
+.demo-card:hover{border-color:color-mix(in oklch,var(--color-accent) 30%,transparent);box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.demo-card .icon{color:var(--color-accent);display:block;margin-bottom:12px}
+.demo-card h3{font-family:var(--font-display);font-weight:600;color:var(--color-fg);font-size:16px;transition:color 0.2s}
+.demo-card:hover h3{color:var(--color-accent)}
+.demo-card p{margin-top:6px;font-size:14px;color:var(--color-muted);line-height:1.5}
+.demo-card .cta{display:inline-block;margin-top:12px;font-size:12px;font-weight:500;color:var(--color-accent);text-transform:uppercase;letter-spacing:0.1em}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:8px;background:var(--color-bg);margin-bottom:4px}
+.result-row .label{font-size:14px;color:var(--color-muted)}
+.result-row .value{font-family:var(--font-display);font-weight:600;color:var(--color-fg)}
+.result-row.highlighted{background:color-mix(in oklch,var(--color-accent) 10%,transparent);border:1px solid color-mix(in oklch,var(--color-accent) 20%,transparent)}
+</style>
+</head>
+<body>
+<h1>🧩 Componentes</h1>
+<p class="sub">Componentes de interfaz extraídos de <code>components/</code> y <code>app/</code>.</p>
+
+<div class="section">
+  <h2>Botones</h2>
+  <div class="component-row"><button class="btn-primary">Calcular IMC</button><button class="btn-primary">Calcular IVA</button><button class="btn-primary">Volver al inicio</button><div class="source">Fuente: <code>components/IMCForm.tsx</code>, <code>not-found.tsx</code></div></div>
+  <div class="component-row"><button class="btn-secondary">Reiniciar</button><button class="btn-secondary">Calculadora de IMC</button><div class="source">Fuente: <code>components/IMCForm.tsx</code>, <code>not-found.tsx</code></div></div>
+  <div class="component-row"><button class="btn-segment active">General (21%)</button><button class="btn-segment">Reducido (10%)</button><button class="btn-segment">Superreducido (4%)</button><div class="source">Fuente: <code>app/iva/IVAForm.tsx</code> — selector de tipo IVA</div></div>
+  <div class="component-row">
+    <div style="display:flex;gap:8px;width:100%;max-width:320px"><button class="btn-mode active">Añadir IVA</button><button class="btn-mode">IVA incluido</button></div>
+    <div class="source">Fuente: <code>app/iva/IVAForm.tsx</code> — modo de cálculo</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Inputs</h2>
+  <div class="component-row" style="flex-direction:column;align-items:stretch">
+    <div><label style="font-size:14px;font-weight:500;color:var(--color-fg);display:block;margin-bottom:6px">Peso (kg)</label><input class="demo-input" placeholder="Ej: 70" /></div>
+    <div style="margin-top:8px"><label style="font-size:14px;font-weight:500;color:var(--color-fg);display:block;margin-bottom:6px">Altura (cm)</label><input class="demo-input" placeholder="Ej: 175" /></div>
+    <div class="source" style="margin-top:8px">Fuente: <code>app/imc/IMCForm.tsx</code></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Result rows</h2>
+  <div class="component-row" style="flex-direction:column;align-items:stretch">
+    <div class="result-row"><span class="label">Tu IMC</span><span class="value">22.4 kg/m²</span></div>
+    <div class="result-row"><span class="label">Clasificación</span><span class="value">Normal</span></div>
+    <div class="result-row"><span class="label">Peso saludable mínimo</span><span class="value">56.8 kg</span></div>
+    <div class="result-row highlighted"><span class="label">Importe con IVA</span><span class="value">121.00 €</span></div>
+    <div class="source" style="margin-top:8px">Fuente: <code>app/imc/IMCForm.tsx</code>, <code>app/iva/IVAForm.tsx</code></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>CalculatorCard</h2>
+  <div class="component-row">
+    <a class="demo-card" href="#">
+      <span class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></span>
+      <h3>Calculadora de IMC</h3>
+      <p>Calcula tu Índice de Masa Corporal y descubre tu peso saludable según la OMS.</p>
+      <span class="cta">Calcular ahora &rarr;</span>
+    </a>
+    <div class="source">Fuente: <code>components/CalculatorCard.tsx</code></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,347 @@
+{
+  "description": "Plantillas de inferencia para calculadoras. El motor de inferencia busca coincidencias por nombre y categoría, y aplica la primera plantilla que coincide. Las plantillas son datos, no código.",
+  "templates": [
+    {
+      "keywords": ["imc", "bmi", "masa corporal", "indice de masa"],
+      "category": "salud",
+      "icon": "bar",
+      "fields": [
+        { "id": "peso", "label": "Peso (kg)", "placeholder": "Ej: 70", "min": 1, "max": 500, "step": "0.1", "unit": "kg" },
+        { "id": "altura", "label": "Altura (cm)", "placeholder": "Ej: 175", "min": 1, "max": 300, "step": "0.5", "unit": "cm" }
+      ],
+      "formula": "peso / ((altura / 100) ** 2)",
+      "roundTo": 1,
+      "unit": "",
+      "description": "Calcula tu {name} y descubre tu peso saludable según la OMS.",
+      "pageIntro": "El {name} es una medida que relaciona el peso y la altura para estimar si tu peso se encuentra dentro de un rango saludable.",
+      "classification": {
+        "field": "altura",
+        "ranges": [
+          { "max": 16, "label": "Delgadez severa", "color": "oklch(55% 0.2 30)" },
+          { "max": 17, "label": "Delgadez moderada", "color": "oklch(60% 0.18 40)" },
+          { "max": 18.5, "label": "Delgadez leve", "color": "oklch(65% 0.15 50)" },
+          { "max": 25, "label": "Normal", "color": "oklch(55% 0.15 145)" },
+          { "max": 30, "label": "Sobrepeso", "color": "oklch(60% 0.18 80)" },
+          { "max": 35, "label": "Obesidad grado I", "color": "oklch(55% 0.2 30)" },
+          { "max": 40, "label": "Obesidad grado II", "color": "oklch(50% 0.22 25)" },
+          { "max": "Infinity", "label": "Obesidad grado III", "color": "oklch(45% 0.25 20)" }
+        ]
+      },
+      "extraResults": [
+        { "label": "Peso saludable mínimo", "value": "18.5 * ((altura / 100) ** 2)", "description": "Para IMC 18.5", "unit": " kg" },
+        { "label": "Peso saludable máximo", "value": "24.9 * ((altura / 100) ** 2)", "description": "Para IMC 24.9", "unit": " kg" }
+      ],
+      "editorial": [
+        { "heading": "¿Qué es el {name}?", "paragraphs": ["El Índice de Masa Corporal es un indicador simple de la relación entre el peso y la talla. Se utiliza frecuentemente para identificar problemas de peso en adultos. La Organización Mundial de la Salud (OMS) establece las categorías: bajo peso (&lt;18.5), normal (18.5-24.9), sobrepeso (25-29.9) y obesidad (&ge;30)."] },
+        { "heading": "Limitaciones", "paragraphs": ["El {name} no mide grasa corporal directamente. Atletas con mucha masa muscular pueden tener un {name} alto sin tener exceso de grasa. Consulta siempre a un profesional de la salud para una evaluación completa."] }
+      ],
+      "seo": {
+        "description": "Calcula tu {name} gratis. Descubre si tu peso es saludable según la clasificación de la OMS.",
+        "ogDescription": "Calcula tu {name} gratis. Clasificación OMS, peso saludable y rango recomendado."
+      }
+    },
+    {
+      "keywords": ["iva", "valor añadido", "impuesto", "vat"],
+      "category": "finanzas",
+      "icon": "chart",
+      "fields": [
+        { "id": "cantidad", "label": "Cantidad (€)", "placeholder": "Ej: 100", "min": 0.01, "max": 999999999, "step": "0.01", "unit": "€" }
+      ],
+      "selectors": [
+        { "id": "tipoIVA", "label": "Tipo de IVA", "options": [
+          { "value": 21, "label": "General (21%)" },
+          { "value": 10, "label": "Reducido (10%)" },
+          { "value": 4, "label": "Superreducido (4%)" }
+        ], "default": 21 },
+        { "id": "modo", "label": "Modo de cálculo", "options": [
+          { "value": "anadir", "label": "Añadir IVA" },
+          { "value": "incluir", "label": "IVA incluido" }
+        ], "default": "anadir" }
+      ],
+      "formula": "iva",
+      "roundTo": 2,
+      "unit": " €",
+      "description": "Calcula el {name} de cualquier importe al tipo general, reducido o superreducido.",
+      "pageIntro": "Calcula el {name} de cualquier importe al tipo general, reducido o superreducido. Puedes calcular el {name} incluido o añadirlo al importe base.",
+      "editorial": [
+        { "heading": "Tipos de IVA en España", "paragraphs": ["En España existen tres tipos de IVA: el tipo general del 21% que se aplica a la mayoría de productos y servicios; el tipo reducido del 10% para alimentos, transporte y vivienda; y el tipo superreducido del 4% para pan, leche, frutas, medicamentos y libros."] },
+        { "heading": "¿Cómo se calcula?", "paragraphs": ["Para añadir el IVA: multiplica el importe base por el porcentaje de IVA y súmalo. Para obtener la base desde un importe con IVA incluido: divide entre 1 + el porcentaje en decimal."] }
+      ],
+      "seo": {
+        "description": "Calcula el {name} de cualquier importe al tipo general (21%), reducido (10%) o superreducido (4%). Incluye o excluye el IVA automáticamente.",
+        "ogDescription": "Calcula el {name} de cualquier importe. Tipos: general 21%, reducido 10%, superreducido 4%."
+      }
+    },
+    {
+      "keywords": ["calorias", "calorías", "kcal", "quemar"],
+      "category": "salud",
+      "icon": "heart",
+      "fields": [
+        { "id": "peso", "label": "Peso (kg)", "placeholder": "Ej: 70", "min": 1, "max": 500, "step": "0.1", "unit": "kg" },
+        { "id": "duracion", "label": "Duración (min)", "placeholder": "Ej: 30", "min": 1, "max": 1440, "step": "1", "unit": "min" }
+      ],
+      "formula": "peso * 0.0175 * 5 * duracion",
+      "roundTo": 0,
+      "unit": " kcal",
+      "description": "Calcula las calorías quemadas según tu peso y la duración de la actividad.",
+      "pageIntro": "Esta calculadora estima las calorías quemadas durante una actividad física basándose en tu peso corporal y el tiempo de ejercicio.",
+      "editorial": [
+        { "heading": "¿Cómo se calculan las calorías quemadas?", "paragraphs": ["La fórmula estima el gasto calórico usando el equivalente metabólico (MET). Multiplica tu peso en kg por 0.0175, luego por el valor MET de la actividad y por los minutos de ejercicio."] },
+        { "heading": "Factores que afectan al gasto calórico", "paragraphs": ["El gasto real varía según la intensidad del ejercicio, la composición corporal, la edad y el sexo. Esta calculadora ofrece una estimación general."] }
+      ],
+      "seo": {
+        "description": "Calcula las calorías que quemas según tu peso y actividad. Gratis y sin registro.",
+        "ogDescription": "Calcula calorías quemadas al instante."
+      }
+    },
+    {
+      "keywords": ["peso ideal", "peso saludable", "ibw"],
+      "category": "salud",
+      "icon": "scale",
+      "fields": [
+        { "id": "altura", "label": "Altura (cm)", "placeholder": "Ej: 170", "min": 50, "max": 300, "step": "0.5", "unit": "cm" },
+        { "id": "edad", "label": "Edad", "placeholder": "Ej: 30", "min": 1, "max": 120, "step": "1", "unit": "años" }
+      ],
+      "formula": "50 + 0.91 * (altura - 152.4)",
+      "roundTo": 1,
+      "unit": " kg",
+      "description": "Calcula tu peso ideal según la fórmula de Devine.",
+      "pageIntro": "El peso ideal es una estimación del peso saludable para una persona según su altura. La fórmula de Devine es una de las más utilizadas.",
+      "editorial": [
+        { "heading": "¿Qué es el peso ideal?", "paragraphs": ["El peso ideal es un rango estimado en el que una persona tiene menor riesgo de problemas de salud asociados al peso. Existen varias fórmulas; la de Devine es una de las más usadas en el ámbito clínico."] },
+        { "heading": "Limitaciones", "paragraphs": ["El peso ideal es una estimación. No tiene en cuenta la composición corporal (músculo vs grasa), la complexión ósea ni la distribución de la grasa."] }
+      ],
+      "seo": {
+        "description": "Calcula tu peso ideal según tu altura y edad. Fórmula de Devine. Gratis.",
+        "ogDescription": "Descubre tu peso ideal al instante."
+      }
+    },
+    {
+      "keywords": ["metabolismo basal", "tmb", "bmr", "gasto basal"],
+      "category": "salud",
+      "icon": "heart",
+      "fields": [
+        { "id": "peso", "label": "Peso (kg)", "placeholder": "Ej: 70", "min": 1, "max": 500, "step": "0.1", "unit": "kg" },
+        { "id": "altura", "label": "Altura (cm)", "placeholder": "Ej: 175", "min": 50, "max": 300, "step": "0.5", "unit": "cm" },
+        { "id": "edad", "label": "Edad", "placeholder": "Ej: 30", "min": 1, "max": 120, "step": "1", "unit": "años" }
+      ],
+      "formula": "10 * peso + 6.25 * altura - 5 * edad + 5",
+      "roundTo": 0,
+      "unit": " kcal/día",
+      "description": "Calcula tu metabolismo basal (TMB) usando la fórmula de Mifflin-St Jeor.",
+      "pageIntro": "El metabolismo basal es la cantidad mínima de energía que tu cuerpo necesita en reposo para mantener funciones vitales como la respiración y la circulación.",
+      "editorial": [
+        { "heading": "¿Qué es el metabolismo basal?", "paragraphs": ["El metabolismo basal (TMB) representa las calorías que tu cuerpo quema en reposo absoluto. Representa aproximadamente el 60-70% del gasto energético total diario."] },
+        { "heading": "Fórmula de Mifflin-St Jeor", "paragraphs": ["Esta fórmula es la más precisa y actualizada para estimar el TMB. Para hombres: 10 × peso (kg) + 6.25 × altura (cm) - 5 × edad + 5. Para mujeres: 10 × peso + 6.25 × altura - 5 × edad - 161."] }
+      ],
+      "seo": {
+        "description": "Calcula tu metabolismo basal (TMB) gratis. Fórmula Mifflin-St Jeor.",
+        "ogDescription": "Calcula tu TMB al instante."
+      }
+    },
+    {
+      "keywords": ["frecuencia cardiaca", "frecuencia cardíaca", "fcm", "zona cardio"],
+      "category": "salud",
+      "icon": "heart",
+      "fields": [
+        { "id": "edad", "label": "Edad", "placeholder": "Ej: 30", "min": 1, "max": 120, "step": "1", "unit": "años" }
+      ],
+      "formula": "220 - edad",
+      "roundTo": 0,
+      "unit": " lpm",
+      "extraResults": [
+        { "label": "Zona de quema de grasa (60-70%)", "value": "(220 - edad) * 0.65", "unit": " lpm" },
+        { "label": "Zona cardiovascular (70-85%)", "value": "(220 - edad) * 0.775", "unit": " lpm" }
+      ],
+      "description": "Calcula tu frecuencia cardíaca máxima y zonas de entrenamiento.",
+      "pageIntro": "La frecuencia cardíaca máxima (FCM) es el número máximo de latidos por minuto durante el ejercicio. Conócela para entrenar de forma segura y efectiva.",
+      "editorial": [
+        { "heading": "¿Qué es la frecuencia cardíaca máxima?", "paragraphs": ["La frecuencia cardíaca máxima (FCM) es el número máximo de latidos por minuto que tu corazón puede alcanzar durante el ejercicio. La fórmula más común es 220 menos tu edad."] },
+        { "heading": "Zonas de entrenamiento", "paragraphs": ["Zona de salud (50-60%): actividad ligera. Zona de quema de grasa (60-70%): ejercicio moderado. Zona aeróbica (70-85%): mejora cardiovascular. Zona anaeróbica (85-100%): esfuerzo máximo."] }
+      ],
+      "seo": {
+        "description": "Calcula tu frecuencia cardíaca máxima y zonas de entrenamiento. Gratis.",
+        "ogDescription": "Entrena en tu zona óptima."
+      }
+    },
+    {
+      "keywords": ["hipoteca", "prestamo", "préstamo", "credito", "crédito"],
+      "category": "finanzas",
+      "icon": "dollar",
+      "fields": [
+        { "id": "monto", "label": "Monto (€)", "placeholder": "Ej: 150000", "min": 1000, "max": 999999999, "step": "1000", "unit": "€" },
+        { "id": "interes", "label": "Interés anual (%)", "placeholder": "Ej: 3.5", "min": 0.1, "max": 30, "step": "0.1", "unit": "%" },
+        { "id": "plazo", "label": "Plazo (años)", "placeholder": "Ej: 25", "min": 1, "max": 50, "step": "1", "unit": "años" }
+      ],
+      "formula": "monto * (interes / 100 / 12) * Math.pow(1 + interes / 100 / 12, plazo * 12) / (Math.pow(1 + interes / 100 / 12, plazo * 12) - 1)",
+      "roundTo": 2,
+      "unit": " €/mes",
+      "extraResults": [
+        { "label": "Total pagado", "value": "(monto * (interes / 100 / 12) * Math.pow(1 + interes / 100 / 12, plazo * 12) / (Math.pow(1 + interes / 100 / 12, plazo * 12) - 1)) * plazo * 12", "unit": " €" },
+        { "label": "Total intereses", "value": "((monto * (interes / 100 / 12) * Math.pow(1 + interes / 100 / 12, plazo * 12) / (Math.pow(1 + interes / 100 / 12, plazo * 12) - 1)) * plazo * 12) - monto", "unit": " €" }
+      ],
+      "description": "Calcula la cuota mensual de tu {name}.",
+      "pageIntro": "Calcula la cuota mensual de tu {name} según el monto, el interés anual y el plazo.",
+      "editorial": [
+        { "heading": "¿Cómo se calcula una {name}?", "paragraphs": ["La cuota mensual de una {name} se calcula usando el método francés o de cuota constante. Cada mes pagas la misma cantidad, pero la proporción entre intereses y amortización varía."] },
+        { "heading": "Consejos", "paragraphs": ["Compara diferentes ofertas antes de decidirte. Un menor tipo de interés puede ahorrarte miles de euros durante la vida del préstamo."] }
+      ],
+      "seo": {
+        "description": "Calcula la cuota mensual de tu {name}. Simulador gratuito con interés fijo.",
+        "ogDescription": "Simula tu {name} al instante."
+      }
+    },
+    {
+      "keywords": ["interes compuesto", "interés compuesto", "inversion", "inversión"],
+      "category": "finanzas",
+      "icon": "dollar",
+      "fields": [
+        { "id": "capital", "label": "Capital inicial (€)", "placeholder": "Ej: 10000", "min": 1, "max": 999999999, "step": "100", "unit": "€" },
+        { "id": "aporte", "label": "Aporte mensual (€)", "placeholder": "Ej: 500", "min": 0, "max": 999999, "step": "50", "unit": "€" },
+        { "id": "interes", "label": "Interés anual (%)", "placeholder": "Ej: 8", "min": 0.1, "max": 100, "step": "0.1", "unit": "%" },
+        { "id": "años", "label": "Años", "placeholder": "Ej: 10", "min": 1, "max": 100, "step": "1", "unit": "años" }
+      ],
+      "formula": "capital * Math.pow(1 + interes / 100 / 12, años * 12) + aporte * (Math.pow(1 + interes / 100 / 12, años * 12) - 1) / (interes / 100 / 12)",
+      "roundTo": 2,
+      "unit": " €",
+      "description": "Calcula el crecimiento de tu inversión con interés compuesto.",
+      "pageIntro": "El interés compuesto es la fuerza más poderosa del universo financiero. Calcula cómo crece tu dinero con aportaciones periódicas.",
+      "editorial": [
+        { "heading": "¿Qué es el interés compuesto?", "paragraphs": ["El interés compuesto es el interés sobre el interés. Reinviertes los intereses generados, que a su vez generan más intereses. Con el tiempo, el crecimiento se acelera exponencialmente."] },
+        { "heading": "La regla del 72", "paragraphs": ["Para estimar cuánto tarda tu inversión en duplicarse, divide 72 entre la tasa de interés anual. Por ejemplo, al 8% anual: 72/8 = 9 años para duplicar tu capital."] }
+      ],
+      "seo": {
+        "description": "Calcula el crecimiento de tu inversión con interés compuesto y aportaciones periódicas. Gratis.",
+        "ogDescription": "Haz crecer tu dinero. Calcula el interés compuesto."
+      }
+    },
+    {
+      "keywords": ["descuento", "rebaja", "oferta"],
+      "category": "finanzas",
+      "icon": "percent",
+      "fields": [
+        { "id": "precio", "label": "Precio original (€)", "placeholder": "Ej: 100", "min": 0.01, "max": 999999, "step": "0.01", "unit": "€" },
+        { "id": "descuento", "label": "Descuento (%)", "placeholder": "Ej: 20", "min": 0, "max": 100, "step": "1", "unit": "%" }
+      ],
+      "formula": "precio * (1 - descuento / 100)",
+      "roundTo": 2,
+      "unit": " €",
+      "extraResults": [
+        { "label": "Ahorro", "value": "precio * descuento / 100", "unit": " €" }
+      ],
+      "description": "Calcula el precio final después de aplicar un descuento.",
+      "pageIntro": "Calcula cuánto pagarás después de aplicar un descuento. Ideal para compras y ofertas.",
+      "editorial": [
+        { "heading": "¿Cómo calcular un descuento?", "paragraphs": ["Multiplica el precio original por el porcentaje de descuento y divide entre 100 para obtener el ahorro. Resta el ahorro del precio original para obtener el precio final."] },
+        { "heading": "Consejos de compra", "paragraphs": ["Comprueba siempre el precio final antes de comprar. A veces los descuentos parecen mayores de lo que realmente son."] }
+      ],
+      "seo": {
+        "description": "Calcula el precio final después de un descuento. Calculadora de descuentos gratuita.",
+        "ogDescription": "Calcula cuánto ahorras con un descuento."
+      }
+    },
+    {
+      "keywords": ["propina", "servicio", "restaurante"],
+      "category": "finanzas",
+      "icon": "percent",
+      "fields": [
+        { "id": "cuenta", "label": "Total de la cuenta (€)", "placeholder": "Ej: 45.50", "min": 0.01, "max": 999999, "step": "0.01", "unit": "€" },
+        { "id": "porcentaje", "label": "Propina (%)", "placeholder": "Ej: 10", "min": 0, "max": 100, "step": "1", "unit": "%" }
+      ],
+      "formula": "cuenta * (1 + porcentaje / 100)",
+      "roundTo": 2,
+      "unit": " €",
+      "extraResults": [
+        { "label": "Propina", "value": "cuenta * porcentaje / 100", "unit": " €" }
+      ],
+      "description": "Calcula la propina y el total a pagar.",
+      "pageIntro": "Calcula cuánto dejar de propina y el total final a pagar en el restaurante.",
+      "editorial": [
+        { "heading": "¿Cuánto dejar de propina?", "paragraphs": ["En España no es obligatorio dejar propina, pero es habitual dejar entre el 5% y el 10% del total si el servicio ha sido bueno. En otros países como Estados Unidos, la propina suele ser del 15-20%."] },
+        { "heading": "Calcular propina entre varias personas", "paragraphs": ["Si pagáis a medias, divide el total (cuenta + propina) entre el número de comensales para saber cuánto paga cada uno."] }
+      ],
+      "seo": {
+        "description": "Calcula la propina y el total a pagar en el restaurante. Gratis.",
+        "ogDescription": "Calcula la propina al instante."
+      }
+    },
+    {
+      "keywords": ["porcentaje", "porcent", "tanto por ciento"],
+      "category": "general",
+      "icon": "percent",
+      "fields": [
+        { "id": "valor", "label": "Valor", "placeholder": "Ej: 200", "min": 0, "max": 999999999, "step": "0.01", "unit": "" },
+        { "id": "total", "label": "Total", "placeholder": "Ej: 1000", "min": 0, "max": 999999999, "step": "0.01", "unit": "" }
+      ],
+      "formula": "(valor / total) * 100",
+      "roundTo": 1,
+      "unit": "%",
+      "description": "Calcula qué porcentaje representa un valor respecto a un total.",
+      "pageIntro": "Calcula rápidamente qué porcentaje representa una cantidad respecto a un total.",
+      "editorial": [
+        { "heading": "¿Cómo calcular un porcentaje?", "paragraphs": ["Para calcular el porcentaje que representa un valor respecto a un total, divide el valor entre el total y multiplica por 100. Por ejemplo, 200 de 1000 es (200/1000) × 100 = 20%."] },
+        { "heading": "Usos comunes", "paragraphs": ["Los porcentajes se usan en descuentos, estadísticas, interés, impuestos, propinas y muchas otras situaciones cotidianas."] }
+      ],
+      "seo": {
+        "description": "Calcula porcentajes al instante. Calculadora de porcentajes gratuita y fácil de usar.",
+        "ogDescription": "Calcula porcentajes al instante."
+      }
+    },
+    {
+      "keywords": ["promedio", "media", "nota final", "calificacion", "calificación"],
+      "category": "educacion",
+      "icon": "calculator",
+      "fields": [
+        { "id": "nota1", "label": "Nota 1", "placeholder": "Ej: 7", "min": 0, "max": 10, "step": "0.1", "unit": "" },
+        { "id": "nota2", "label": "Nota 2", "placeholder": "Ej: 8", "min": 0, "max": 10, "step": "0.1", "unit": "" },
+        { "id": "nota3", "label": "Nota 3", "placeholder": "Ej: 9", "min": 0, "max": 10, "step": "0.1", "unit": "" }
+      ],
+      "formula": "(nota1 + nota2 + nota3) / 3",
+      "roundTo": 1,
+      "unit": "",
+      "classification": {
+        "field": "nota1",
+        "ranges": [
+          { "max": 5, "label": "Insuficiente", "color": "oklch(50% 0.22 25)" },
+          { "max": 6, "label": "Suficiente", "color": "oklch(60% 0.18 80)" },
+          { "max": 7, "label": "Bien", "color": "oklch(62% 0.15 100)" },
+          { "max": 9, "label": "Notable", "color": "oklch(58% 0.15 145)" },
+          { "max": "Infinity", "label": "Sobresaliente", "color": "oklch(50% 0.15 160)" }
+        ]
+      },
+      "description": "Calcula el promedio de tus notas.",
+      "pageIntro": "Calcula el promedio de tus notas o calificaciones de forma rápida.",
+      "editorial": [
+        { "heading": "¿Cómo calcular la nota media?", "paragraphs": ["La nota media se calcula sumando todas las calificaciones y dividiendo entre el número de notas. Si las notas tienen pesos diferentes, multiplica cada nota por su peso antes de sumar."] },
+        { "heading": "Nota media ponderada", "paragraphs": ["Si tus asignaturas tienen créditos diferentes, necesitas una media ponderada: multiplica cada nota por sus créditos, suma los resultados y divide entre la suma total de créditos."] }
+      ],
+      "seo": {
+        "description": "Calcula el promedio de tus notas fácilmente. Calculadora de media gratuita.",
+        "ogDescription": "Calcula tu nota media al instante."
+      }
+    },
+    {
+      "keywords": ["edad", "cuantos años", "cuántos años"],
+      "category": "general",
+      "icon": "clock",
+      "fields": [
+        { "id": "año", "label": "Año de nacimiento", "placeholder": "Ej: 1990", "min": 1900, "max": 2100, "step": "1", "unit": "" },
+        { "id": "mes", "label": "Mes de nacimiento", "placeholder": "Ej: 5", "min": 1, "max": 12, "step": "1", "unit": "" },
+        { "id": "dia", "label": "Día de nacimiento", "placeholder": "Ej: 15", "min": 1, "max": 31, "step": "1", "unit": "" }
+      ],
+      "formula": "date",
+      "roundTo": 0,
+      "unit": " años",
+      "description": "Calcula tu edad exacta en años, meses y días.",
+      "pageIntro": "Calcula tu edad exacta a partir de tu fecha de nacimiento. Obtén años, meses y días.",
+      "editorial": [
+        { "heading": "¿Cómo calcular la edad exacta?", "paragraphs": ["Para calcular la edad exacta, resta tu fecha de nacimiento de la fecha actual. El resultado son los años, meses y días que has vivido."] },
+        { "heading": "Curiosidades", "paragraphs": ["Tu edad en días es aproximadamente tu edad en años multiplicada por 365.25 (incluyendo años bisiestos)."] }
+      ],
+      "seo": {
+        "description": "Calcula tu edad exacta en años, meses y días. Calculadora de edad gratuita.",
+        "ogDescription": "Calcula tu edad exacta al instante."
+      }
+    }
+  ]
+}

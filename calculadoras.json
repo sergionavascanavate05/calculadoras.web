@@ -1,0 +1,140 @@
+{
+  "baseUrl": "https://calculadoras-online.com",
+  "locale": "es-ES",
+  "blogPosts": [
+    {
+      "slug": "/blog/que-es-el-imc-y-como-se-calcula"
+    },
+    {
+      "slug": "/blog/tipos-de-iva-en-espana-2026"
+    }
+  ],
+  "calculadoras": [
+    {
+      "id": "imc",
+      "title": "Calculadora de IMC",
+      "slug": "/imc",
+      "category": "salud"
+    },
+    {
+      "id": "iva",
+      "title": "Calculadora de IVA",
+      "slug": "/iva",
+      "category": "finanzas"
+    },
+    {
+      "id": "hipoteca",
+      "title": "Calculadora de Hipoteca",
+      "slug": "/hipoteca",
+      "category": "finanzas"
+    },
+    {
+      "id": "interes-compuesto",
+      "title": "Calculadora de Interés Compuesto",
+      "slug": "/interes-compuesto",
+      "category": "finanzas"
+    },
+    {
+      "id": "prestamo",
+      "title": "Calculadora de Préstamos",
+      "slug": "/prestamo",
+      "category": "finanzas"
+    },
+    {
+      "id": "amortizacion",
+      "title": "Calculadora de Amortización",
+      "slug": "/amortizacion",
+      "category": "finanzas"
+    },
+    {
+      "id": "descuento",
+      "title": "Calculadora de Descuentos",
+      "slug": "/descuento",
+      "category": "finanzas"
+    },
+    {
+      "id": "porcentaje",
+      "title": "Calculadora de Porcentaje",
+      "slug": "/porcentaje",
+      "category": "general"
+    },
+    {
+      "id": "propina",
+      "title": "Calculadora de Propinas",
+      "slug": "/propina",
+      "category": "general"
+    },
+    {
+      "id": "edad",
+      "title": "Calculadora de Edad",
+      "slug": "/edad",
+      "category": "general"
+    },
+    {
+      "id": "dias-entre-fechas",
+      "title": "Calculadora de Días entre Fechas",
+      "slug": "/dias-entre-fechas",
+      "category": "general"
+    },
+    {
+      "id": "calorias",
+      "title": "Calculadora de Calorías",
+      "slug": "/calorias",
+      "category": "salud"
+    },
+    {
+      "id": "peso-ideal",
+      "title": "Calculadora de Peso Ideal",
+      "slug": "/peso-ideal",
+      "category": "salud"
+    },
+    {
+      "id": "tmb",
+      "title": "Calculadora de Tasa Metabólica Basal",
+      "slug": "/tmb",
+      "category": "salud"
+    },
+    {
+      "id": "fcm",
+      "title": "Calculadora de Frecuencia Cardíaca Máxima",
+      "slug": "/fcm",
+      "category": "salud"
+    },
+    {
+      "id": "iva-inverso",
+      "title": "Calculadora de IVA Inverso",
+      "slug": "/iva-inverso",
+      "category": "finanzas"
+    },
+    {
+      "id": "inflacion",
+      "title": "Calculadora de Inflación",
+      "slug": "/inflacion",
+      "category": "finanzas"
+    },
+    {
+      "id": "consumo-combustible",
+      "title": "Calculadora de Consumo de Combustible",
+      "slug": "/consumo-combustible",
+      "category": "general"
+    },
+    {
+      "id": "divisas",
+      "title": "Calculadora de Conversión de Divisas",
+      "slug": "/divisas",
+      "category": "finanzas"
+    },
+    {
+      "id": "margen-comercial",
+      "title": "Calculadora de Margen Comercial",
+      "slug": "/margen-comercial",
+      "category": "finanzas"
+    },
+    {
+      "id": "beneficio",
+      "title": "Calculadora de Beneficio",
+      "slug": "/beneficio",
+      "category": "finanzas"
+    }
+  ]
+}

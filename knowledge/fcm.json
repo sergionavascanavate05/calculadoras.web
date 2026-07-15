@@ -1,0 +1,60 @@
+{
+  "id": "fcm",
+  "icon": "heart",
+  "description": "Calcula tu frecuencia cardíaca máxima y zonas de entrenamiento.",
+  "fields": [
+    {
+      "id": "edad",
+      "label": "Edad",
+      "placeholder": "Ej: 30",
+      "min": 1,
+      "max": 120,
+      "step": "1",
+      "unit": "años"
+    }
+  ],
+  "formulaLabel": "Calcular Frecuencia Cardíaca Máxima",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "La frecuencia cardíaca máxima (FCM) es el número máximo de latidos por minuto durante el ejercicio. Conócela para entrenar de forma segura y efectiva.",
+  "logic": {
+    "type": "formula",
+    "fields": [
+      "edad"
+    ],
+    "formula": "220 - edad",
+    "roundTo": 0,
+    "unit": " lpm",
+    "extraResults": [
+      {
+        "label": "Zona de quema de grasa (60-70%)",
+        "value": "(220 - edad) * 0.65",
+        "unit": " lpm"
+      },
+      {
+        "label": "Zona cardiovascular (70-85%)",
+        "value": "(220 - edad) * 0.775",
+        "unit": " lpm"
+      }
+    ]
+  },
+  "seo": {
+    "title": "Calculadora de Frecuencia Cardíaca Máxima",
+    "description": "Calcula tu frecuencia cardíaca máxima y zonas de entrenamiento. Gratis.",
+    "ogTitle": "Calculadora de Frecuencia Cardíaca Máxima - Calculadoras Online",
+    "ogDescription": "Entrena en tu zona óptima."
+  },
+  "editorial": [
+    {
+      "heading": "¿Qué es la frecuencia cardíaca máxima?",
+      "paragraphs": [
+        "La frecuencia cardíaca máxima (FCM) es el número máximo de latidos por minuto que tu corazón puede alcanzar durante el ejercicio. La fórmula más común es 220 menos tu edad."
+      ]
+    },
+    {
+      "heading": "Zonas de entrenamiento",
+      "paragraphs": [
+        "Zona de salud (50-60%): actividad ligera. Zona de quema de grasa (60-70%): ejercicio moderado. Zona aeróbica (70-85%): mejora cardiovascular. Zona anaeróbica (85-100%): esfuerzo máximo."
+      ]
+    }
+  ]
+}

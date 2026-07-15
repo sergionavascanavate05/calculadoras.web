@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Footer</title><link rel="stylesheet" href="../../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end}
+footer{border-top:1px solid var(--color-border)}
+.footer-inner{max-width:1200px;margin:0 auto;padding:40px 16px}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:32px}
+@media(min-width:640px){.footer-grid{grid-template-columns:repeat(3,1fr)}}
+.footer-col h3{font-family:var(--font-display);font-weight:600;font-size:14px;color:var(--color-fg);margin-bottom:12px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-col a{font-size:14px;color:var(--color-muted);text-decoration:none;transition:color 0.15s}
+.footer-col a:hover{color:var(--color-accent)}
+.footer-bottom{margin-top:32px;padding-top:24px;border-top:1px solid var(--color-border);text-align:center}
+.footer-bottom p{font-size:12px;color:var(--color-muted)}
+</style>
+</head>
+<body>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Calculadoras</h3>
+        <ul><li><a href="#">Calculadora de IMC</a></li><li><a href="#">Calculadora de IVA</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contenido</h3>
+        <ul><li><a href="#">Blog</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <ul><li><a href="#">Política de privacidad</a></li><li><a href="#">Contacto</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Calculadoras Online. Herramientas gratuitas para tus cálculos diarios.</p></div>
+  </div>
+</footer>
+</body>
+</html>

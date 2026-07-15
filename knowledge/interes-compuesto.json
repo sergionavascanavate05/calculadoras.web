@@ -1,0 +1,78 @@
+{
+  "id": "interes-compuesto",
+  "icon": "dollar",
+  "description": "Calcula el crecimiento de tu inversión con interés compuesto.",
+  "fields": [
+    {
+      "id": "capital",
+      "label": "Capital inicial (€)",
+      "placeholder": "Ej: 10000",
+      "min": 1,
+      "max": 999999999,
+      "step": "100",
+      "unit": "€"
+    },
+    {
+      "id": "aporte",
+      "label": "Aporte mensual (€)",
+      "placeholder": "Ej: 500",
+      "min": 0,
+      "max": 999999,
+      "step": "50",
+      "unit": "€"
+    },
+    {
+      "id": "interes",
+      "label": "Interés anual (%)",
+      "placeholder": "Ej: 8",
+      "min": 0.1,
+      "max": 100,
+      "step": "0.1",
+      "unit": "%"
+    },
+    {
+      "id": "años",
+      "label": "Años",
+      "placeholder": "Ej: 10",
+      "min": 1,
+      "max": 100,
+      "step": "1",
+      "unit": "años"
+    }
+  ],
+  "formulaLabel": "Calcular Interés Compuesto",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "El interés compuesto es la fuerza más poderosa del universo financiero. Calcula cómo crece tu dinero con aportaciones periódicas.",
+  "logic": {
+    "type": "formula",
+    "fields": [
+      "capital",
+      "aporte",
+      "interes",
+      "años"
+    ],
+    "formula": "capital * Math.pow(1 + interes / 100 / 12, años * 12) + aporte * (Math.pow(1 + interes / 100 / 12, años * 12) - 1) / (interes / 100 / 12)",
+    "roundTo": 2,
+    "unit": " €"
+  },
+  "seo": {
+    "title": "Calculadora de Interés Compuesto",
+    "description": "Calcula el crecimiento de tu inversión con interés compuesto y aportaciones periódicas. Gratis.",
+    "ogTitle": "Calculadora de Interés Compuesto - Calculadoras Online",
+    "ogDescription": "Haz crecer tu dinero. Calcula el interés compuesto."
+  },
+  "editorial": [
+    {
+      "heading": "¿Qué es el interés compuesto?",
+      "paragraphs": [
+        "El interés compuesto es el interés sobre el interés. Reinviertes los intereses generados, que a su vez generan más intereses. Con el tiempo, el crecimiento se acelera exponencialmente."
+      ]
+    },
+    {
+      "heading": "La regla del 72",
+      "paragraphs": [
+        "Para estimar cuánto tarda tu inversión en duplicarse, divide 72 entre la tasa de interés anual. Por ejemplo, al 8% anual: 72/8 = 9 años para duplicar tu capital."
+      ]
+    }
+  ]
+}

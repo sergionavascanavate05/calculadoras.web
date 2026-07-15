@@ -1,0 +1,68 @@
+{
+  "id": "edad",
+  "icon": "clock",
+  "description": "Calcula tu edad exacta en años, meses y días.",
+  "fields": [
+    {
+      "id": "año",
+      "label": "Año de nacimiento",
+      "placeholder": "Ej: 1990",
+      "min": 1900,
+      "max": 2100,
+      "step": "1",
+      "unit": ""
+    },
+    {
+      "id": "mes",
+      "label": "Mes de nacimiento",
+      "placeholder": "Ej: 5",
+      "min": 1,
+      "max": 12,
+      "step": "1",
+      "unit": ""
+    },
+    {
+      "id": "dia",
+      "label": "Día de nacimiento",
+      "placeholder": "Ej: 15",
+      "min": 1,
+      "max": 31,
+      "step": "1",
+      "unit": ""
+    }
+  ],
+  "formulaLabel": "Calcular Edad",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "Calcula tu edad exacta a partir de tu fecha de nacimiento. Obtén años, meses y días.",
+  "logic": {
+    "type": "date",
+    "fields": [
+      "año",
+      "mes",
+      "dia"
+    ],
+    "formula": "date",
+    "roundTo": 0,
+    "unit": " años"
+  },
+  "seo": {
+    "title": "Calculadora de Edad",
+    "description": "Calcula tu edad exacta en años, meses y días. Calculadora de edad gratuita.",
+    "ogTitle": "Calculadora de Edad - Calculadoras Online",
+    "ogDescription": "Calcula tu edad exacta al instante."
+  },
+  "editorial": [
+    {
+      "heading": "¿Cómo calcular la edad exacta?",
+      "paragraphs": [
+        "Para calcular la edad exacta, resta tu fecha de nacimiento de la fecha actual. El resultado son los años, meses y días que has vivido."
+      ]
+    },
+    {
+      "heading": "Curiosidades",
+      "paragraphs": [
+        "Tu edad en días es aproximadamente tu edad en años multiplicada por 365.25 (incluyendo años bisiestos)."
+      ]
+    }
+  ]
+}

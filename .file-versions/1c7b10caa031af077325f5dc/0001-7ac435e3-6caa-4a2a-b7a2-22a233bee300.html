@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Colores primarios — Design System</title><link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);color:var(--color-fg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;padding:32px}
+h1{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
+.sub{color:var(--color-muted);font-size:14px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:1200px;margin:0 auto}
+.swatch{border-radius:12px;border:1px solid var(--color-border);overflow:hidden;background:var(--color-surface)}
+.swatch-preview{height:80px;display:flex;align-items:center;justify-content:center;font-size:12px;font-family:var(--font-mono);color:rgba(0,0,0,0.4)}
+.swatch-info{padding:12px}
+.swatch-info .name{font-size:13px;font-weight:600;margin-bottom:2px}
+.swatch-info .value{font-size:11px;color:var(--color-muted);font-family:var(--font-mono)}
+.swatch-info .usage{font-size:11px;color:var(--color-muted);margin-top:4px}
+.dark-section{margin-top:32px;padding:24px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface);max-width:1200px;margin-left:auto;margin-right:auto}
+.dark-section h2{font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:16px}
+.dark-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;padding:16px;border-radius:12px;background:var(--color-surface)}
+.dark-preview .mini{height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:var(--font-mono);color:rgba(0,0,0,0.5)}
+</style>
+</head>
+<body>
+<h1>🎨 Colores — Paleta principal</h1>
+<p class="sub">Tokens extraídos de <code>app/globals.css</code> y <code>colors_and_type.css</code>.</p>
+<div class="grid">
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-bg);color:var(--color-muted)">--color-bg</div><div class="swatch-info"><div class="name">--color-bg</div><div class="value">oklch(99% 0.002 240) · #f8f9fb</div><div class="usage">Fondo de página principal</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-surface);border-bottom:1px solid var(--color-border);color:var(--color-muted)">--color-surface</div><div class="swatch-info"><div class="name">--color-surface</div><div class="value">oklch(100% 0 0) · #ffffff</div><div class="usage">Tarjetas, formularios, superficies elevadas</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-fg);color:rgba(255,255,255,0.7)">--color-fg</div><div class="swatch-info"><div class="name">--color-fg</div><div class="value">oklch(18% 0.012 250) · #2c2e33</div><div class="usage">Texto principal</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-muted);color:rgba(255,255,255,0.8)">--color-muted</div><div class="swatch-info"><div class="name">--color-muted</div><div class="value">oklch(54% 0.012 250) · #848790</div><div class="usage">Texto secundario, metadatos</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-border);color:var(--color-muted)">--color-border</div><div class="swatch-info"><div class="name">--color-border</div><div class="value">oklch(92% 0.005 250) · #e8eaed</div><div class="usage">Bordes, separadores</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-accent);color:white">--color-accent</div><div class="swatch-info"><div class="name">--color-accent</div><div class="value">oklch(58% 0.18 255) · #4a7cf7</div><div class="usage">Acción principal, enlaces, estado activo</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-accent-hover);color:white">--color-accent-hover</div><div class="swatch-info"><div class="name">--color-accent-hover</div><div class="value">oklch(52% 0.2 255) · #3a66d9</div><div class="usage">Hover de botón primario</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-accent-light);color:var(--color-fg)">--color-accent-light</div><div class="swatch-info"><div class="name">--color-accent-light</div><div class="value">oklch(90% 0.06 255) · #d6e2ff</div><div class="usage">Resaltado de selección, fondo acento sutil</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-error);color:white">--color-error</div><div class="swatch-info"><div class="name">--color-error</div><div class="value">oklch(55% 0.22 25) · #c94a3a</div><div class="usage">Error de validación</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-imc-normal);color:white">--color-imc-normal</div><div class="swatch-info"><div class="name">--color-imc-normal</div><div class="value">oklch(55% 0.15 145) · #4caf7a</div><div class="usage">IMC "Normal" — clasificación saludable</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-imc-warning);color:white">--color-imc-warning</div><div class="swatch-info"><div class="name">--color-imc-warning</div><div class="value">oklch(60% 0.18 80) · #d4a843</div><div class="usage">IMC "Sobrepeso"</div></div></div>
+  <div class="swatch"><div class="swatch-preview" style="background:var(--color-imc-danger);color:white">--color-imc-danger</div><div class="swatch-info"><div class="name">--color-imc-danger</div><div class="value">oklch(50% 0.22 25) · #c0392b</div><div class="usage">IMC "Obesidad"</div></div></div>
+</div>
+<div class="dark-section">
+  <h2>Modo oscuro</h2>
+  <p class="sub" style="margin-bottom:12px">Añade la clase <code>.dark</code> a <code>&lt;html&gt;</code> para activar.</p>
+  <div class="dark-preview" style="background:oklch(12% 0.01 250)">
+    <div class="mini" style="background:oklch(12% 0.01 250);color:rgba(255,255,255,0.6)">--color-bg #1a1c21</div>
+    <div class="mini" style="background:oklch(16% 0.012 250);color:rgba(255,255,255,0.6)">--color-surface #23262c</div>
+    <div class="mini" style="background:oklch(92% 0.005 250);color:rgba(0,0,0,0.5)">--color-fg #e6e8ec</div>
+    <div class="mini" style="background:oklch(62% 0.01 250);color:rgba(0,0,0,0.5)">--color-muted #989ca6</div>
+    <div class="mini" style="background:oklch(28% 0.01 250);color:rgba(255,255,255,0.6)">--color-border #3d4047</div>
+    <div class="mini" style="background:oklch(62% 0.18 255);color:white">--color-accent #5a8af7</div>
+    <div class="mini" style="background:oklch(68% 0.18 255);color:white">--color-accent-hover #7aa3f9</div>
+    <div class="mini" style="background:oklch(22% 0.08 255);color:rgba(255,255,255,0.6)">--color-accent-light #222d4a</div>
+  </div>
+</div>
+</body>
+</html>

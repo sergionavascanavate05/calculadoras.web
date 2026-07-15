@@ -1,0 +1,58 @@
+{
+  "id": "porcentaje",
+  "icon": "percent",
+  "description": "Calcula qué porcentaje representa un valor respecto a un total.",
+  "fields": [
+    {
+      "id": "valor",
+      "label": "Valor",
+      "placeholder": "Ej: 200",
+      "min": 0,
+      "max": 999999999,
+      "step": "0.01",
+      "unit": ""
+    },
+    {
+      "id": "total",
+      "label": "Total",
+      "placeholder": "Ej: 1000",
+      "min": 0,
+      "max": 999999999,
+      "step": "0.01",
+      "unit": ""
+    }
+  ],
+  "formulaLabel": "Calcular Porcentaje",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "Calcula rápidamente qué porcentaje representa una cantidad respecto a un total.",
+  "logic": {
+    "type": "formula",
+    "fields": [
+      "valor",
+      "total"
+    ],
+    "formula": "(valor / total) * 100",
+    "roundTo": 1,
+    "unit": "%"
+  },
+  "seo": {
+    "title": "Calculadora de Porcentaje",
+    "description": "Calcula porcentajes al instante. Calculadora de porcentajes gratuita y fácil de usar.",
+    "ogTitle": "Calculadora de Porcentaje - Calculadoras Online",
+    "ogDescription": "Calcula porcentajes al instante."
+  },
+  "editorial": [
+    {
+      "heading": "¿Cómo calcular un porcentaje?",
+      "paragraphs": [
+        "Para calcular el porcentaje que representa un valor respecto a un total, divide el valor entre el total y multiplica por 100. Por ejemplo, 200 de 1000 es (200/1000) × 100 = 20%."
+      ]
+    },
+    {
+      "heading": "Usos comunes",
+      "paragraphs": [
+        "Los porcentajes se usan en descuentos, estadísticas, interés, impuestos, propinas y muchas otras situaciones cotidianas."
+      ]
+    }
+  ]
+}

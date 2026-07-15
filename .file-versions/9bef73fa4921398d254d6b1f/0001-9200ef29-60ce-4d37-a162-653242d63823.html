@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Blog Card</title><link rel="stylesheet" href="../../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;padding:32px;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.card{display:block;padding:20px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface);text-decoration:none;transition:all 0.2s ease}
+.card:hover{border-color:color-mix(in oklch,var(--color-accent) 30%,transparent)}
+.card-meta{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.card-category{font-size:12px;font-weight:500;color:var(--color-accent);text-transform:uppercase;letter-spacing:0.1em}
+.card-date{font-size:12px;color:var(--color-muted)}
+.card h2{font-family:var(--font-display);font-weight:600;color:var(--color-fg);font-size:16px;transition:color 0.2s}
+.card:hover h2{color:var(--color-accent)}
+.card p{margin-top:6px;font-size:14px;color:var(--color-muted);line-height:1.5}
+</style>
+</head>
+<body>
+<a class="card" href="#">
+  <div class="card-meta"><span class="card-category">Salud</span><span class="card-date">2026-01-15</span></div>
+  <h2>¿Qué es el IMC y cómo se calcula?</h2>
+  <p>Descubre todo sobre el Índice de Masa Corporal: cómo se calcula, qué significa cada categoría y sus limitaciones.</p>
+</a>
+<a class="card" href="#">
+  <div class="card-meta"><span class="card-category">Finanzas</span><span class="card-date">2026-01-10</span></div>
+  <h2>Tipos de IVA en España: guía completa 2026</h2>
+  <p>Conoce los diferentes tipos de IVA en España, qué productos aplican a cada tipo y cómo calcularlos correctamente.</p>
+</a>
+</body>
+</html>

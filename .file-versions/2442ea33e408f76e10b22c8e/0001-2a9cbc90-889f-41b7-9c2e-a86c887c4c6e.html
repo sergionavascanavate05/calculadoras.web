@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Source Examples — Calculadoras Online</title><link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);color:var(--color-fg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;padding:32px;max-width:1100px;margin:0 auto}
+h1{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
+.sub{color:var(--color-muted);font-size:14px;margin-bottom:32px}
+.section{margin-bottom:40px;padding:24px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface)}
+.section h2{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--color-border)}
+.section .source-path{font-size:12px;color:var(--color-muted);font-family:var(--font-mono);margin-bottom:16px;padding:6px 10px;background:var(--color-bg);border-radius:6px;border:1px solid var(--color-border)}
+pre{background:var(--color-bg);border:1px solid var(--color-border);border-radius:8px;padding:16px;overflow-x:auto;font-family:var(--font-mono);font-size:12px;line-height:1.6;color:var(--color-fg)}
+</style>
+</head>
+<body>
+<h1>📁 Source Examples</h1>
+<p class="sub">Componentes originales del proyecto Next.js + TypeScript + Tailwind CSS, preservados como evidencia del sistema de diseño.</p>
+
+<div class="section">
+  <h2>CalculatorCard — components/CalculatorCard.tsx</h2>
+  <div class="source-path">components/CalculatorCard.tsx</div>
+  <pre>"use client";
+import Link from "next/link";
+import type { CalculatorMeta } from "@/types";
+
+export default function CalculatorCard({ calculator }: { calculator: CalculatorMeta }) {
+  return (
+    &lt;Link
+      href={calculator.slug}
+      className="group block p-6 rounded-xl border border-border bg-surface
+        hover:border-accent/30 hover:shadow-sm transition-all duration-200"
+    &gt;
+      &lt;span className="block mb-3 text-accent" dangerouslySetInnerHTML={{ __html: calculator.icon }} /&gt;
+      &lt;h3 className="font-display font-semibold text-fg group-hover:text-accent transition-colors"&gt;
+        {calculator.title}
+      &lt;/h3&gt;
+      &lt;p className="mt-1.5 text-sm text-muted leading-relaxed"&gt;
+        {calculator.description}
+      &lt;/p&gt;
+      &lt;span className="inline-block mt-3 text-xs font-medium text-accent uppercase tracking-widest"&gt;
+        Calcular ahora &amp;rarr;
+      &lt;/span&gt;
+    &lt;/Link&gt;
+  );
+}</pre>
+</div>
+
+<div class="section">
+  <h2>ThemeToggle — components/ThemeToggle.tsx</h2>
+  <div class="source-path">components/ThemeToggle.tsx</div>
+  <pre>"use client";
+import { useEffect, useState } from "react";
+
+export default function ThemeToggle() {
+  const [dark, setDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() =&gt; {
+    setMounted(true);
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = stored ? stored === "dark" : prefersDark;
+    setDark(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  }, []);
+
+  function toggle() {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  }
+
+  if (!mounted) return &lt;div className="w-9 h-9" /&gt;;
+
+  return (
+    &lt;button onClick={toggle}
+      className="relative w-9 h-9 flex items-center justify-center rounded-lg
+        border border-border bg-surface hover:bg-border transition-colors
+        text-muted hover:text-fg"
+      aria-label={dark ? "Activar modo claro" : "Activar modo oscuro"}&gt;
+      &lt;svg className={"w-5 h-5 transition-opacity " + (dark ? "opacity-100" : "opacity-0 absolute")}&gt;
+        {/* moon icon */}
+      &lt;/svg&gt;
+      &lt;svg className={"w-5 h-5 transition-opacity " + (!dark ? "opacity-100" : "opacity-0 absolute")}&gt;
+        {/* sun icon */}
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  );
+}</pre>
+</div>
+
+<div class="section">
+  <h2>AdUnit — components/AdUnit.tsx</h2>
+  <div class="source-path">components/AdUnit.tsx</div>
+  <pre>"use client";
+import { useEffect, useRef } from "react";
+
+interface AdUnitProps {
+  slot: string;
+  format?: "auto" | "horizontal" | "rectangle" | "vertical";
+  className?: string;
+}
+
+export default function AdUnit({ slot, format = "auto", className = "" }: AdUnitProps) {
+  const adRef = useRef&lt;HTMLDivElement&gt;(null);
+  const initialized = useRef(false);
+
+  useEffect(() =&gt; {
+    if (initialized.current) return;
+    initialized.current = true;
+    try {
+      const adsbygoogle = (window as unknown as Record&lt;string, unknown&gt;).adsbygoogle as unknown[];
+      if (adsbygoogle) adsbygoogle.push({});
+    } catch { /* AdBlock detected */ }
+  }, []);
+
+  return (
+    &lt;div ref={adRef} className={"ads-container min-h-[90px] flex items-center justify-center " + className}&gt;
+      &lt;ins className="adsbygoogle" style={{ display: "block" }}
+        data-ad-client="ca-pub-XXXXXXXXXXXXXX"
+        data-ad-slot={slot}
+        data-ad-format={format}
+        data-full-width-responsive="true" /&gt;
+    &lt;/div&gt;
+  );
+}</pre>
+</div>
+
+<div class="section">
+  <h2>IMC calculator logic — lib/calculators/imc.ts</h2>
+  <div class="source-path">lib/calculators/imc.ts</div>
+  <pre>function clasificarIMC(imc: number): { clasificacion: string; color: string } {
+  if (imc &lt; 16) return { clasificacion: "Delgadez severa", color: "oklch(55% 0.2 30)" };
+  if (imc &lt; 17) return { clasificacion: "Delgadez moderada", color: "oklch(60% 0.18 40)" };
+  if (imc &lt; 18.5) return { clasificacion: "Delgadez leve", color: "oklch(65% 0.15 50)" };
+  if (imc &lt; 25) return { clasificacion: "Normal", color: "oklch(55% 0.15 145)" };
+  if (imc &lt; 30) return { clasificacion: "Sobrepeso", color: "oklch(60% 0.18 80)" };
+  if (imc &lt; 35) return { clasificacion: "Obesidad grado I", color: "oklch(55% 0.2 30)" };
+  if (imc &lt; 40) return { clasificacion: "Obesidad grado II", color: "oklch(50% 0.22 25)" };
+  return { clasificacion: "Obesidad grado III", color: "oklch(45% 0.25 20)" };
+}
+
+export function calcularIMC({ peso, altura }: IMCInput): IMCResult {
+  const alturaMetros = altura / 100;
+  const imc = peso / (alturaMetros * alturaMetros);
+  const imcRedondeado = Math.round(imc * 10) / 10;
+  const { clasificacion, color } = clasificarIMC(imcRedondeado);
+  const pesoMinimo = 18.5 * (alturaMetros * alturaMetros);
+  const pesoMaximo = 24.9 * (alturaMetros * alturaMetros);
+  return {
+    imc: imcRedondeado, clasificacion, color,
+    resultados: [
+      { label: "Tu IMC", value: imcRedondeado.toString(), unit: "kg/m²" },
+      { label: "Clasificación", value: clasificacion },
+      { label: "Peso saludable mínimo", value: Math.round(pesoMinimo * 10) / 10 + " kg", description: "Para IMC 18.5" },
+      { label: "Peso saludable máximo", value: Math.round(pesoMaximo * 10) / 10 + " kg", description: "Para IMC 24.9" },
+    ]
+  };
+}</pre>
+</div>
+
+<div class="section">
+  <h2>IVA calculator logic — lib/calculators/iva.ts</h2>
+  <div class="source-path">lib/calculators/iva.ts</div>
+  <pre>export const TIPOS_IVA = [
+  { value: 21, label: "General (21%)" },
+  { value: 10, label: "Reducido (10%)" },
+  { value: 4, label: "Superreducido (4%)" },
+];
+
+export function calcularIVA({ cantidad, tipoIVA, modo }: IVAInput): IVAResult {
+  const tipo = tipoIVA / 100;
+  if (modo === "anadir") {
+    const iva = cantidad * tipo;
+    const conIVA = cantidad + iva;
+    return {
+      sinIVA: cantidad, conIVA, iva, tipoIVA,
+      resultados: [
+        { label: "Importe sin IVA", value: cantidad.toFixed(2) + " €" },
+        { label: "IVA (" + tipoIVA + "%)", value: iva.toFixed(2) + " €" },
+        { label: "Importe con IVA", value: conIVA.toFixed(2) + " €" },
+      ],
+    };
+  }
+  const sinIVA = cantidad / (1 + tipo);
+  const iva = cantidad - sinIVA;
+  return {
+    sinIVA, conIVA: cantidad, iva, tipoIVA,
+    resultados: [
+      { label: "Importe sin IVA", value: sinIVA.toFixed(2) + " €" },
+      { label: "IVA (" + tipoIVA + "%)", value: iva.toFixed(2) + " €" },
+      { label: "Importe con IVA", value: cantidad.toFixed(2) + " €" },
+    ],
+  };
+}</pre>
+</div>
+
+<div class="section">
+  <h2>Types — types/index.ts</h2>
+  <div class="source-path">types/index.ts</div>
+  <pre>export interface CalculatorMeta {
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
+  icon: string;
+  category: "salud" | "finanzas" | "educacion" | "general";
+}
+
+export interface BlogPostMeta {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  category: string;
+  readingTime: string;
+}
+
+export interface CalculatorResult {
+  label: string;
+  value: string;
+  unit?: string;
+  description?: string;
+}</pre>
+</div>
+
+<div class="section">
+  <h2>Calculator Registry — lib/calculators/index.ts</h2>
+  <div class="source-path">lib/calculators/index.ts</div>
+  <pre>export const CALCULATOR_REGISTRY: CalculatorMeta[] = [
+  {
+    id: "imc",
+    title: "Calculadora de IMC",
+    description: "Calcula tu Índice de Masa Corporal y descubre tu peso saludable seg&uacute;n la OMS.",
+    slug: "/imc",
+    icon: `&lt;svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+      stroke-linecap="round" stroke-linejoin="round"&gt;
+      &lt;path d="M12 20V10"/&gt;&lt;path d="M18 20V4"/&gt;&lt;path d="M6 20v-4"/&gt;&lt;/svg&gt;`,
+    category: "salud",
+  },
+  {
+    id: "iva",
+    title: "Calculadora de IVA",
+    description: "Calcula el IVA de cualquier importe al tipo general, reducido o superreducido.",
+    slug: "/iva",
+    icon: `&lt;svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+      stroke-linecap="round" stroke-linejoin="round"&gt;
+      &lt;path d="M3 3v18h18"/&gt;&lt;path d="M7 16l4-8 4 4 4-6"/&gt;&lt;/svg&gt;`,
+    category: "finanzas",
+  },
+];
+
+export function getCalculatorBySlug(slug: string): CalculatorMeta | undefined {
+  return CALCULATOR_REGISTRY.find((c) =&gt; c.slug === "/" + slug || c.slug === slug);
+}</pre>
+</div>
+</body>
+</html>

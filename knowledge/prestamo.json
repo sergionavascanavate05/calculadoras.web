@@ -1,0 +1,80 @@
+{
+  "id": "prestamo",
+  "icon": "dollar",
+  "description": "Calcula la cuota mensual de tu préstamos.",
+  "fields": [
+    {
+      "id": "monto",
+      "label": "Monto (€)",
+      "placeholder": "Ej: 150000",
+      "min": 1000,
+      "max": 999999999,
+      "step": "1000",
+      "unit": "€"
+    },
+    {
+      "id": "interes",
+      "label": "Interés anual (%)",
+      "placeholder": "Ej: 3.5",
+      "min": 0.1,
+      "max": 30,
+      "step": "0.1",
+      "unit": "%"
+    },
+    {
+      "id": "plazo",
+      "label": "Plazo (años)",
+      "placeholder": "Ej: 25",
+      "min": 1,
+      "max": 50,
+      "step": "1",
+      "unit": "años"
+    }
+  ],
+  "formulaLabel": "Calcular Préstamos",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "Calcula la cuota mensual de tu préstamos según el monto, el interés anual y el plazo.",
+  "logic": {
+    "type": "formula",
+    "fields": [
+      "monto",
+      "interes",
+      "plazo"
+    ],
+    "formula": "monto * (interes / 100 / 12) * Math.pow(1 + interes / 100 / 12, plazo * 12) / (Math.pow(1 + interes / 100 / 12, plazo * 12) - 1)",
+    "roundTo": 2,
+    "unit": " €/mes",
+    "extraResults": [
+      {
+        "label": "Total pagado",
+        "value": "(monto * (interes / 100 / 12) * Math.pow(1 + interes / 100 / 12, plazo * 12) / (Math.pow(1 + interes / 100 / 12, plazo * 12) - 1)) * plazo * 12",
+        "unit": " €"
+      },
+      {
+        "label": "Total intereses",
+        "value": "((monto * (interes / 100 / 12) * Math.pow(1 + interes / 100 / 12, plazo * 12) / (Math.pow(1 + interes / 100 / 12, plazo * 12) - 1)) * plazo * 12) - monto",
+        "unit": " €"
+      }
+    ]
+  },
+  "seo": {
+    "title": "Calculadora de Préstamos",
+    "description": "Calcula la cuota mensual de tu préstamos. Simulador gratuito con interés fijo.",
+    "ogTitle": "Calculadora de Préstamos - Calculadoras Online",
+    "ogDescription": "Simula tu préstamos al instante."
+  },
+  "editorial": [
+    {
+      "heading": "¿Cómo se calcula una préstamos?",
+      "paragraphs": [
+        "La cuota mensual de una préstamos se calcula usando el método francés o de cuota constante. Cada mes pagas la misma cantidad, pero la proporción entre intereses y amortización varía."
+      ]
+    },
+    {
+      "heading": "Consejos",
+      "paragraphs": [
+        "Compara diferentes ofertas antes de decidirte. Un menor tipo de interés puede ahorrarte miles de euros durante la vida del préstamo."
+      ]
+    }
+  ]
+}

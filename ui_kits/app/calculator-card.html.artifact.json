@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "ui_kits/app/calculator-card.html",
+  "entry": "ui_kits/app/calculator-card.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-12T20:45:06.298Z",
+  "updatedAt": "2026-07-12T20:45:06.298Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

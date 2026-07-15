@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Radios y sombras — Design System</title><link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);color:var(--color-fg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;padding:32px;max-width:900px;margin:0 auto}
+h1{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
+.sub{color:var(--color-muted);font-size:14px;margin-bottom:32px}
+.section{margin-bottom:32px;padding:24px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface)}
+.section h2{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--color-border)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card-demo{display:flex;flex-direction:column;align-items:center;gap:8px;padding:24px;text-align:center}
+.card-demo .token{font-size:11px;font-family:var(--font-mono);color:var(--color-muted)}
+.card-demo .usage{font-size:11px;color:var(--color-muted)}
+.shadow-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.shadow-card{padding:20px;text-align:center;border-radius:12px;background:var(--color-surface);border:1px solid var(--color-border)}
+.shadow-card .label{font-size:13px;font-weight:600;margin-bottom:4px}
+.shadow-card .desc{font-size:11px;color:var(--color-muted)}
+</style>
+</head>
+<body>
+<h1>📐 Radios y Elevación</h1>
+<p class="sub">Tokens de border-radius y comportamiento de sombras del proyecto fuente.</p>
+
+<div class="section">
+  <h2>Border Radius</h2>
+  <div class="grid">
+    <div class="card-demo" style="border:2px solid var(--color-accent);border-radius:var(--radius-md);background:var(--color-bg)">
+      <div style="font-size:14px;font-weight:600">--radius-md</div>
+      <div class="token">8px</div>
+      <div class="usage">Inputs, botones pequeños</div>
+    </div>
+    <div class="card-demo" style="border:2px solid var(--color-accent);border-radius:var(--radius-lg);background:var(--color-bg)">
+      <div style="font-size:14px;font-weight:600">--radius-lg</div>
+      <div class="token">12px</div>
+      <div class="usage">Tarjetas, formularios, secciones</div>
+    </div>
+    <div class="card-demo" style="border:2px solid var(--color-accent);border-radius:var(--radius-full);background:var(--color-bg)">
+      <div style="font-size:14px;font-weight:600">--radius-full</div>
+      <div class="token">9999px</div>
+      <div class="usage">Badges, círculo IMC, toggle</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Elevación / Sombras</h2>
+  <p class="sub" style="margin-bottom:16px;font-size:13px;color:var(--color-muted)">El proyecto fuente usa sombras mínimas. Solo se aplica <code>shadow-sm</code> en hover de CalculatorCard. No hay sombras fijas en estado normal.</p>
+  <div class="shadow-demo">
+    <div class="shadow-card">
+      <div class="label">Sin sombra (default)</div>
+      <div class="desc">Estado normal de tarjetas y formularios. Solo borde.</div>
+    </div>
+    <div class="shadow-card" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+      <div class="label">shadow-sm (hover)</div>
+      <div class="desc">Hover de CalculatorCard. border-color + shadow.</div>
+    </div>
+    <div class="shadow-card" style="box-shadow:0 0 0 2px color-mix(in oklch,var(--color-accent) 30%,transparent)">
+      <div class="label">focus ring</div>
+      <div class="desc">Input focus: 2px accent al 30%.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Contexto de uso en el proyecto</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:14px">
+    <tr><td style="padding:8px;border-bottom:1px solid var(--color-border);font-family:var(--font-mono);font-size:11px;color:var(--color-muted);width:200px">rounded-xl</td><td style="padding:8px;border-bottom:1px solid var(--color-border);color:var(--color-muted)">CalculatorCard, formularios, secciones de blog, resultado (12px)</td></tr>
+    <tr><td style="padding:8px;border-bottom:1px solid var(--color-border);font-family:var(--font-mono);font-size:11px;color:var(--color-muted)">rounded-lg</td><td style="padding:8px;border-bottom:1px solid var(--color-border);color:var(--color-muted)">Botones, enlaces de navegación, theme toggle (8px)</td></tr>
+    <tr><td style="padding:8px;border-bottom:1px solid var(--color-border);font-family:var(--font-mono);font-size:11px;color:var(--color-muted)">rounded-full</td><td style="padding:8px;border-bottom:1px solid var(--color-border);color:var(--color-muted)">Círculo de resultado IMC (80px, 9999px)</td></tr>
+    <tr><td style="padding:8px;border-bottom:1px solid var(--color-border);font-family:var(--font-mono);font-size:11px;color:var(--color-muted)">hover:shadow-sm</td><td style="padding:8px;border-bottom:1px solid var(--color-border);color:var(--color-muted)">CalculatorCard hover (border + shadow)</td></tr>
+    <tr><td style="padding:8px;font-family:var(--font-mono);font-size:11px;color:var(--color-muted)">focus:ring-2</td><td style="padding:8px;color:var(--color-muted)">Input focus: ring accent/30</td></tr>
+  </table>
+</div>
+</body>
+</html>

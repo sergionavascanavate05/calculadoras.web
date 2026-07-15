@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "preview/brand-assets.html",
+  "entry": "preview/brand-assets.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-12T20:48:45.321Z",
+  "updatedAt": "2026-07-12T20:48:45.321Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

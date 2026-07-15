@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Brand assets — Design System</title><link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-bg);color:var(--color-fg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;padding:32px;max-width:900px;margin:0 auto}
+h1{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
+.sub{color:var(--color-muted);font-size:14px;margin-bottom:32px}
+.section{margin-bottom:32px;padding:24px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface)}
+.section h2{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--color-border)}
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+.icon-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;border-radius:8px;background:var(--color-bg);border:1px solid var(--color-border)}
+.icon-card img{width:36px;height:36px;color:var(--color-accent)}
+.icon-card .label{font-size:11px;font-family:var(--font-mono);color:var(--color-muted)}
+.icon-card .source{font-size:10px;color:var(--color-muted);word-break:break-all}
+.brand-row{display:flex;align-items:center;gap:16px;padding:16px;border-radius:12px;background:var(--color-bg);border:1px solid var(--color-border);margin-bottom:12px}
+.brand-row .logo-text{font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--color-fg)}
+.brand-row .logo-mark{color:var(--color-accent);font-size:22px;font-weight:700}
+.brand-row .meta{font-size:13px;color:var(--color-muted)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+td{padding:8px;border-bottom:1px solid var(--color-border);vertical-align:top}
+td:first-child{font-family:var(--font-mono);font-size:11px;color:var(--color-muted);width:140px;white-space:nowrap}
+td:last-child{color:var(--color-muted)}
+.asset-badge{display:inline-block;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:4px;background:var(--color-accent-light);color:var(--color-accent);font-weight:600;margin-left:6px}
+</style>
+</head>
+<body>
+<h1>🏷️ Brand Assets</h1>
+<p class="sub">Identidad visual, iconos SVG y logotipo extraídos del proyecto fuente. Los iconos de esta página se cargan directamente desde los archivos preservados en <code>assets/</code>.</p>
+
+<div class="section">
+  <h2>Logotipo</h2>
+  <div class="brand-row">
+    <div><span class="logo-mark">#</span> <span class="logo-text">Calculadoras</span></div>
+    <div class="meta">· <code>#</code> en accent (#4a7cf7) · SF Pro Display · 18px semibold</div>
+  </div>
+  <div class="source" style="font-size:12px;color:var(--color-muted)">Fuente: <code>components/Header.tsx</code></div>
+</div>
+
+<div class="section">
+  <h2>Iconos SVG — assets/ <span class="asset-badge">6 archivos preservados</span></h2>
+  <p class="sub" style="margin-bottom:12px">Cada icono se carga mediante <code>&lt;img&gt;</code> desde su archivo SVG original en <code>assets/</code>.</p>
+  <div class="icon-grid">
+    <div class="icon-card"><img src="../assets/icon-imc.svg" alt="Icono IMC" /><div class="label">icon-imc.svg</div><div class="source">assets/icon-imc.svg</div></div>
+    <div class="icon-card"><img src="../assets/icon-iva.svg" alt="Icono IVA" /><div class="label">icon-iva.svg</div><div class="source">assets/icon-iva.svg</div></div>
+    <div class="icon-card"><img src="../assets/icon-moon.svg" alt="Icono luna" /><div class="label">icon-moon.svg</div><div class="source">assets/icon-moon.svg</div></div>
+    <div class="icon-card"><img src="../assets/icon-sun.svg" alt="Icono sol" /><div class="label">icon-sun.svg</div><div class="source">assets/icon-sun.svg</div></div>
+    <div class="icon-card"><img src="../assets/icon-hamburger.svg" alt="Icono menú" /><div class="label">icon-hamburger.svg</div><div class="source">assets/icon-hamburger.svg</div></div>
+    <div class="icon-card"><img src="../assets/icon-close.svg" alt="Icono cerrar" /><div class="label">icon-close.svg</div><div class="source">assets/icon-close.svg</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Build assets — build/ <span class="asset-badge">4 archivos preservados</span></h2>
+  <p class="sub" style="margin-bottom:12px">Iconos copiados a <code>build/</code> como runtime assets preservados del proyecto fuente.</p>
+  <div class="icon-grid">
+    <div class="icon-card"><img src="../build/icon-imc.svg" alt="Icono IMC build" /><div class="label">build/icon-imc.svg</div><div class="source">build/icon-imc.svg</div></div>
+    <div class="icon-card"><img src="../build/icon-iva.svg" alt="Icono IVA build" /><div class="label">build/icon-iva.svg</div><div class="source">build/icon-iva.svg</div></div>
+    <div class="icon-card"><img src="../build/icon-moon.svg" alt="Icono luna build" /><div class="label">build/icon-moon.svg</div><div class="source">build/icon-moon.svg</div></div>
+    <div class="icon-card"><img src="../build/icon-sun.svg" alt="Icono sol build" /><div class="label">build/icon-sun.svg</div><div class="source">build/icon-sun.svg</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Identidad de marca</h2>
+  <table>
+    <tr><td>Nombre</td><td>Calculadoras Online</td></tr>
+    <tr><td>Tagline</td><td>Herramientas gratuitas para calcular IMC, IVA y más.</td></tr>
+    <tr><td>URL canónica</td><td>https://calculadoras-online.com</td></tr>
+    <tr><td>Locale</td><td>es-ES</td></tr>
+    <tr><td>Fuente (display)</td><td>SF Pro Display / -apple-system</td></tr>
+    <tr><td>Fuente (body)</td><td>SF Pro Text / -apple-system</td></tr>
+    <tr><td>Color acento</td><td>oklch(58% 0.18 255) · #4a7cf7 (azul)</td></tr>
+    <tr><td>Modo oscuro</td><td>Sí — clase .dark + localStorage</td></tr>
+    <tr><td>Framework</td><td>Next.js 14 + TypeScript + Tailwind CSS 3</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h2>SEO & Metadatos</h2>
+  <table>
+    <tr><td>Schema.org</td><td>WebSite con SearchAction (app/layout.tsx)</td></tr>
+    <tr><td>OpenGraph</td><td>Título, descripción, locale es_ES (app/layout.tsx)</td></tr>
+    <tr><td>Twitter Card</td><td>summary_large_image (app/layout.tsx)</td></tr>
+    <tr><td>Robots</td><td>index, follow (app/robots.ts)</td></tr>
+    <tr><td>Sitemap</td><td>app/sitemap.ts</td></tr>
+    <tr><td>AdSense</td><td>ca-pub-XXXXXXXXXXXXXX (app/layout.tsx, components/AdUnit.tsx)</td></tr>
+    <tr><td>ads.txt</td><td>public/ads.txt</td></tr>
+  </table>
+</div>
+</body>
+</html>

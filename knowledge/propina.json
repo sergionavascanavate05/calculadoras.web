@@ -1,0 +1,65 @@
+{
+  "id": "propina",
+  "icon": "percent",
+  "description": "Calcula la propina y el total a pagar.",
+  "fields": [
+    {
+      "id": "cuenta",
+      "label": "Total de la cuenta (€)",
+      "placeholder": "Ej: 45.50",
+      "min": 0.01,
+      "max": 999999,
+      "step": "0.01",
+      "unit": "€"
+    },
+    {
+      "id": "porcentaje",
+      "label": "Propina (%)",
+      "placeholder": "Ej: 10",
+      "min": 0,
+      "max": 100,
+      "step": "1",
+      "unit": "%"
+    }
+  ],
+  "formulaLabel": "Calcular Propinas",
+  "resetLabel": "Reiniciar",
+  "pageIntro": "Calcula cuánto dejar de propina y el total final a pagar en el restaurante.",
+  "logic": {
+    "type": "formula",
+    "fields": [
+      "cuenta",
+      "porcentaje"
+    ],
+    "formula": "cuenta * (1 + porcentaje / 100)",
+    "roundTo": 2,
+    "unit": " €",
+    "extraResults": [
+      {
+        "label": "Propina",
+        "value": "cuenta * porcentaje / 100",
+        "unit": " €"
+      }
+    ]
+  },
+  "seo": {
+    "title": "Calculadora de Propinas",
+    "description": "Calcula la propina y el total a pagar en el restaurante. Gratis.",
+    "ogTitle": "Calculadora de Propinas - Calculadoras Online",
+    "ogDescription": "Calcula la propina al instante."
+  },
+  "editorial": [
+    {
+      "heading": "¿Cuánto dejar de propina?",
+      "paragraphs": [
+        "En España no es obligatorio dejar propina, pero es habitual dejar entre el 5% y el 10% del total si el servicio ha sido bueno. En otros países como Estados Unidos, la propina suele ser del 15-20%."
+      ]
+    },
+    {
+      "heading": "Calcular propina entre varias personas",
+      "paragraphs": [
+        "Si pagáis a medias, divide el total (cuenta + propina) entre el número de comensales para saber cuánto paga cada uno."
+      ]
+    }
+  ]
+}
