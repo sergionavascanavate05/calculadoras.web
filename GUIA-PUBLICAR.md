@@ -1,8 +1,8 @@
 # Guía para publicar el sitio
 
-Clic a clic. No hace falta saber nada de programación.
+Clic a clic. No hace falta saber nada de programación **ni usar la terminal**.
 
-**Tiempo total: unos 50 minutos. Coste: unos 11 €/año** (solo el dominio).
+**Tiempo total: unos 45 minutos. Coste: unos 11 €/año** (solo el dominio).
 
 Puedes parar en cualquier punto y seguir otro día. Después de cada paso hay una casilla: márcala cuando lo tengas.
 
@@ -37,37 +37,20 @@ Vercel es donde vivirá el sitio. El plan gratuito sobra para esto.
 
 ---
 
-## Paso 2 · Subir el sitio (10 min)
+## Paso 2 · Publicar el sitio (5 min, sin terminal)
 
-1. Abre una terminal en la carpeta del proyecto.
-2. Escribe esto y pulsa Enter:
+**El código ya está subido a tu GitHub**, así que esto son cuatro clics.
 
-```bash
-npx vercel login
-```
+1. En **https://vercel.com/new**, verás la lista de tus repositorios de GitHub.
+2. Busca **`calculadoras.web`** y pulsa **"Import"**.
+   - Si no aparece, pulsa **"Adjust GitHub App Permissions"** y da acceso a ese repositorio.
+3. No cambies nada de la configuración: Vercel detecta Next.js solo.
+4. Pulsa **"Deploy"** y espera uno o dos minutos.
+5. Te dará una dirección tipo `https://calculadoras-web-xxxx.vercel.app`. Ábrela. **El sitio ya está online.**
 
-3. Elige tu método (el mismo del paso 1). Se abrirá el navegador; confirma y vuelve a la terminal.
-4. Ahora escribe:
+> A partir de ahora, cada vez que yo actualice el código y lo suba, el sitio se actualiza solo. No tendrás que volver a hacer esto.
 
-```bash
-npx vercel --prod
-```
-
-5. Te hará varias preguntas. Responde así:
-
-| Pregunta | Respuesta |
-|---|---|
-| Set up and deploy? | **Y** (Enter) |
-| Which scope? | tu cuenta (Enter) |
-| Link to existing project? | **N** |
-| What's your project's name? | `calculadoras-online` (Enter) |
-| In which directory is your code? | **./** (Enter) |
-| Want to modify settings? | **N** |
-
-6. Espera uno o dos minutos. Al final te dará una dirección tipo `https://calculadoras-online-xxxx.vercel.app`.
-7. Ábrela. **El sitio ya está online.**
-
-> En esa dirección `.vercel.app` **no habrá anuncios nunca**: AdSense no acepta subdominios gratuitos. Por eso hace falta el paso 3.
+> En la dirección `.vercel.app` **no habrá anuncios nunca**: AdSense no acepta subdominios gratuitos. Por eso hace falta el paso 3.
 
 - [ ] Sitio publicado y funcionando
 
@@ -179,6 +162,7 @@ Puede que no funcione. Es un sitio nuevo compitiendo en palabras clave muy dispu
 Pégame el mensaje de error tal cual y lo miro. No hace falta que entiendas qué significa.
 
 Errores normales y sin importancia:
-- **"Error: No existing credentials found"** → te falta hacer `npx vercel login`.
-- **"Invalid Configuration"** en el dominio → espera 15 minutos y recarga. El DNS tarda.
+- **El repositorio no aparece en Vercel** → pulsa "Adjust GitHub App Permissions" y dale acceso a `calculadoras.web`.
+- **"Invalid Configuration"** en el dominio → espera 15 minutos y recarga. El DNS tarda en propagarse.
 - **"needs attention"** en AdSense → suele ser un dato fiscal a medio rellenar.
+- **Sigue saliendo el recuadro amarillo** → falta alguna de las cinco variables del paso 4, o no has hecho el "Redeploy" después de añadirlas.
