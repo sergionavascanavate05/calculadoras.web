@@ -96,28 +96,30 @@ Si el dominio ya no estuviera libre, prueba `calculadorasonline.es`, `miscalcula
 
 Esto es obligatorio por ley (aviso legal y política de privacidad) y AdSense lo exige.
 
-1. Abre el archivo **`lib/config.ts`**.
-2. Verás cuatro líneas que empiezan por `PENDIENTE`. Sustituye **solo lo que está entre comillas**:
+**No hay que tocar ningún archivo.** Tus datos van en el panel de Vercel, no en el código, porque tu repositorio de GitHub es público y ahí quedarían para siempre en el historial.
 
-```ts
-titular: "Sergio Navas",
-nif: "12345678Z",
-domicilio: "Calle Ejemplo 1, 08001 Barcelona",
-email: "tucorreo@gmail.com",
-```
+1. En Vercel, entra en tu proyecto → pestaña **"Settings"** → menú lateral **"Environment Variables"**.
+2. Añade estas cuatro, una a una. En cada una escribes el nombre en "Key" y tu dato en "Value", y pulsas **"Save"**:
 
-3. Guarda el archivo.
-4. En la terminal:
+| Key | Value (ejemplo) |
+|---|---|
+| `NEXT_PUBLIC_TITULAR` | Sergio Navas |
+| `NEXT_PUBLIC_NIF` | 12345678Z |
+| `NEXT_PUBLIC_DOMICILIO` | Calle Ejemplo 1, 08001 Barcelona |
+| `NEXT_PUBLIC_EMAIL_CONTACTO` | tucorreo@gmail.com |
 
-```bash
-npx vercel --prod
-```
+3. Añade también esta quinta, con tu dominio:
 
+| Key | Value |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | https://calculadoras-online.com |
+
+4. Ve a la pestaña **"Deployments"**, pulsa los tres puntos del primero de la lista y elige **"Redeploy"**.
 5. Entra en `https://calculadoras-online.com/aviso-legal`. Si ya **no** aparece el recuadro amarillo de aviso, está bien hecho.
 
-> Si prefieres no poner tu domicilio particular, puedes usar un apartado de correos. Lo que no puedes es dejarlo en blanco ni inventarlo.
+> Si prefieres no publicar tu domicilio particular, puedes usar un apartado de correos o la dirección de tu gestoría. Lo que no puedes es dejarlo en blanco ni inventarlo: el aviso legal obliga a que sean reales.
 
-- [ ] Datos rellenados y sitio actualizado
+- [ ] Las cinco variables configuradas y sitio actualizado
 
 ---
 
