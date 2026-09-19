@@ -1,112 +1,72 @@
 "use client";
 import { useState } from "react";
 import { calcularDivisas } from "@/lib/calculators";
-import { DIVISAS_TIPOIVA } from "@/lib/calculators";
 import type { DivisasResult } from "@/lib/calculators";
+import { validarNumero } from "@/lib/formato";
+import ResultadoPanel from "@/components/ResultadoPanel";
+
+const CAMPO =
+  "w-full px-3 py-2.5 rounded-lg border border-border bg-bg text-fg placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm";
 
 export default function DivisasForm() {
   const [cantidad, setCantidad] = useState("");
-  const [tipoIVA, setTipoIVA] = useState(21);
-  const [modo, setModo] = useState<"anadir" | "incluir">("anadir");
+  const [tasa, setTasa] = useState("");
+  const [comision, setComision] = useState("0");
   const [resultado, setResultado] = useState<DivisasResult | null>(null);
   const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (isSubmitting) return;
     setError("");
-    setIsSubmitting(true);
-    const rawCantidad = cantidad.trim();
-    if (!rawCantidad || rawCantidad.length > 20) {
-      setError("Introduce un cantidad válido");
-      setIsSubmitting(false);
-      return;
-    }
-    const cantidadNum = parseFloat(rawCantidad);
-    if (isNaN(cantidadNum) || !isFinite(cantidadNum)) {
-      setError("Introduce un número válido para cantidad");
-      setIsSubmitting(false);
-      return;
-    }
 
-    if (cantidadNum <= 0 || cantidadNum > 999999999) {
-      setError("Introduce un cantidad válido (0.01-999999999 €)");
-      setIsSubmitting(false);
-      return;
-    }
+    const c = validarNumero(cantidad, { min: 0.01, max: 1_000_000_000, etiqueta: "la cantidad" });
+    if (!c.ok) return setError(c.error);
+    const t = validarNumero(tasa, { min: 0.000001, max: 1_000_000, etiqueta: "el tipo de cambio" });
+    if (!t.ok) return setError(t.error);
+    const k = validarNumero(comision, { min: 0, max: 100, etiqueta: "la comisión", unidad: "%" });
+    if (!k.ok) return setError(k.error);
 
-    if (!navigator.onLine) {
-      setError("Sin conexión a Internet. Comprueba tu conexión y vuelve a intentarlo.");
-      setIsSubmitting(false);
-      return;
-    }
-    try {
-      const res = calcularDivisas({ cantidad: cantidadNum, tipoIVA: tipoIVA, modo: modo });
-      setResultado(res);
-    } catch (e) {
-      setError("Ocurrió un error al calcular. Inténtalo de nuevo.");
-    }
-    setIsSubmitting(false);
+    setResultado(calcularDivisas({ cantidad: c.valor, tasa: t.valor, comision: k.valor }));
   }
 
   function handleReset() {
     setCantidad("");
+    setTasa("");
+    setComision("0");
     setResultado(null);
     setError("");
-    setIsSubmitting(false);
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit} className="card p-6 space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label htmlFor="cantidad" className="block text-sm font-medium text-fg mb-1.5">Cantidad (€)</label>
-            <input id="cantidad" type="number" step="0.01" min="0.01" max="999999999"
-              value={cantidad} onChange={(e) => setCantidad(e.target.value)}
-              placeholder="Ej: 100"
-              className="w-full px-3 py-2.5 rounded-lg border border-border bg-bg text-fg placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm" />
+            <label htmlFor="cantidad" className="block text-sm font-medium text-fg mb-1.5">Cantidad a cambiar</label>
+            <input id="cantidad" type="number" step="0.01" min="0.01" value={cantidad}
+              onChange={(e) => setCantidad(e.target.value)} placeholder="Ej: 1000" className={CAMPO} />
           </div>
-        <div>
-          <label className="block text-sm font-medium text-fg mb-2">Tipo de IVA</label>
-          <div className="flex flex-wrap gap-2">
-            <button type="button" onClick={() => setTipoIVA(21)}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all " + (tipoIVA === 21 ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg hover:border-accent/30")}>General (21%)</button>
-            <button type="button" onClick={() => setTipoIVA(10)}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all " + (tipoIVA === 10 ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg hover:border-accent/30")}>Reducido (10%)</button>
-            <button type="button" onClick={() => setTipoIVA(4)}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all " + (tipoIVA === 4 ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg hover:border-accent/30")}>Superreducido (4%)</button>
+          <div>
+            <label htmlFor="tasa" className="block text-sm font-medium text-fg mb-1.5">Tipo de cambio</label>
+            <input id="tasa" type="number" step="0.0001" min="0.000001" value={tasa}
+              onChange={(e) => setTasa(e.target.value)} placeholder="Ej: 1.0850" className={CAMPO} />
+          </div>
+          <div>
+            <label htmlFor="comision" className="block text-sm font-medium text-fg mb-1.5">Comisión (%)</label>
+            <input id="comision" type="number" step="0.01" min="0" max="100" value={comision}
+              onChange={(e) => setComision(e.target.value)} placeholder="Ej: 1.5" className={CAMPO} />
           </div>
         </div>
-        <div>
-          <label className="block text-sm font-medium text-fg mb-2">Modo de cálculo</label>
-          <div className="flex gap-2">
-            <button type="button" onClick={() => setModo("anadir")}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all flex-1 " + (modo === "anadir" ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg")}>Añadir IVA</button>
-            <button type="button" onClick={() => setModo("incluir")}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all flex-1 " + (modo === "incluir" ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg")}>IVA incluido</button>
-          </div>
-        </div>
-        {error && (<p className="text-sm" style={{ color: "oklch(55% 0.22 25)" }}>{error}</p>)}
+        <p className="text-xs text-subtle">
+          El tipo de cambio lo introduces tú, de modo que puedes comparar la cotización interbancaria con la que te ofrece realmente tu banco. Esta herramienta no consulta cotizaciones en tiempo real.
+        </p>
+        {error && <p className="text-sm text-error" role="alert">{error}</p>}
         <div className="flex gap-3">
-          <button type="submit" disabled={isSubmitting} className="btn-primary disabled:opacity-60 disabled:cursor-not-allowed">
-            {isSubmitting ? "Calculando..." : "Calcular Conversión de Divisas"}
-          </button>
-          {resultado && (<button type="button" onClick={handleReset} className="btn-secondary">Reiniciar</button>)}
+          <button type="submit" className="btn-primary">Convertir</button>
+          {resultado && <button type="button" onClick={handleReset} className="btn-secondary">Reiniciar</button>}
         </div>
       </form>
-      {resultado && (
-        <div className="mt-6 card p-6 animate-slide-up">
-          <div className="space-y-2">
-            {resultado.resultados.map((r, i) => (
-              <div key={i} className={"flex items-center justify-between py-3 px-4 rounded-lg " + (i === resultado.resultados.length - 1 ? "bg-accent/10 border border-accent/20" : "bg-bg")}>
-                <span className="text-sm text-muted">{r.label}</span>
-                <span className="font-display font-semibold text-fg">{r.value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {resultado && <ResultadoPanel resultados={resultado.resultados} />}
     </div>
   );
 }

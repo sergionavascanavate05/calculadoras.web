@@ -1,111 +1,114 @@
 "use client";
 import { useState } from "react";
 import { calcularAmortizacion } from "@/lib/calculators";
-import { AMORTIZACION_TIPOIVA } from "@/lib/calculators";
 import type { AmortizacionResult } from "@/lib/calculators";
+import { validarNumero, euros } from "@/lib/formato";
+import ResultadoPanel from "@/components/ResultadoPanel";
+
+const CAMPO =
+  "w-full px-3 py-2.5 rounded-lg border border-border bg-bg text-fg placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm";
 
 export default function AmortizacionForm() {
-  const [cantidad, setCantidad] = useState("");
-  const [tipoIVA, setTipoIVA] = useState(21);
-  const [modo, setModo] = useState<"anadir" | "incluir">("anadir");
+  const [capital, setCapital] = useState("");
+  const [interes, setInteres] = useState("");
+  const [plazo, setPlazo] = useState("");
   const [resultado, setResultado] = useState<AmortizacionResult | null>(null);
+  const [verCuadro, setVerCuadro] = useState(false);
   const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (isSubmitting) return;
     setError("");
-    setIsSubmitting(true);
-    const rawCantidad = cantidad.trim();
-    if (!rawCantidad || rawCantidad.length > 20) {
-      setError("Introduce un cantidad válido");
-      setIsSubmitting(false);
-      return;
-    }
-    const cantidadNum = parseFloat(rawCantidad);
-    if (isNaN(cantidadNum) || !isFinite(cantidadNum)) {
-      setError("Introduce un número válido para cantidad");
-      setIsSubmitting(false);
-      return;
-    }
 
-    if (cantidadNum <= 0 || cantidadNum > 999999999) {
-      setError("Introduce un cantidad válido (0.01-999999999 €)");
-      setIsSubmitting(false);
-      return;
-    }
+    const c = validarNumero(capital, { min: 100, max: 100_000_000, etiqueta: "el capital", unidad: "€" });
+    if (!c.ok) return setError(c.error);
+    const i = validarNumero(interes, { min: 0, max: 30, etiqueta: "el interés anual", unidad: "%" });
+    if (!i.ok) return setError(i.error);
+    const p = validarNumero(plazo, { min: 1, max: 50, etiqueta: "el plazo", unidad: "años" });
+    if (!p.ok) return setError(p.error);
 
-    if (!navigator.onLine) {
-      setError("Sin conexión a Internet. Comprueba tu conexión y vuelve a intentarlo.");
-      setIsSubmitting(false);
-      return;
-    }
     try {
-      const res = calcularAmortizacion({ cantidad: cantidadNum, tipoIVA: tipoIVA, modo: modo });
-      setResultado(res);
-    } catch (e) {
+      setResultado(calcularAmortizacion({ capital: c.valor, interes: i.valor, plazo: p.valor }));
+      setVerCuadro(false);
+    } catch {
       setError("Ocurrió un error al calcular. Inténtalo de nuevo.");
     }
-    setIsSubmitting(false);
   }
 
   function handleReset() {
-    setCantidad("");
+    setCapital("");
+    setInteres("");
+    setPlazo("");
     setResultado(null);
+    setVerCuadro(false);
     setError("");
-    setIsSubmitting(false);
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit} className="card p-6 space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label htmlFor="cantidad" className="block text-sm font-medium text-fg mb-1.5">Cantidad (€)</label>
-            <input id="cantidad" type="number" step="0.01" min="0.01" max="999999999"
-              value={cantidad} onChange={(e) => setCantidad(e.target.value)}
-              placeholder="Ej: 100"
-              className="w-full px-3 py-2.5 rounded-lg border border-border bg-bg text-fg placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all text-sm" />
+            <label htmlFor="capital" className="block text-sm font-medium text-fg mb-1.5">Capital (€)</label>
+            <input id="capital" type="number" step="1000" min="100" value={capital}
+              onChange={(e) => setCapital(e.target.value)} placeholder="Ej: 150000" className={CAMPO} />
           </div>
-        <div>
-          <label className="block text-sm font-medium text-fg mb-2">Tipo de IVA</label>
-          <div className="flex flex-wrap gap-2">
-            <button type="button" onClick={() => setTipoIVA(21)}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all " + (tipoIVA === 21 ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg hover:border-accent/30")}>General (21%)</button>
-            <button type="button" onClick={() => setTipoIVA(10)}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all " + (tipoIVA === 10 ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg hover:border-accent/30")}>Reducido (10%)</button>
-            <button type="button" onClick={() => setTipoIVA(4)}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all " + (tipoIVA === 4 ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg hover:border-accent/30")}>Superreducido (4%)</button>
+          <div>
+            <label htmlFor="interes" className="block text-sm font-medium text-fg mb-1.5">Interés anual (%)</label>
+            <input id="interes" type="number" step="0.01" min="0" max="30" value={interes}
+              onChange={(e) => setInteres(e.target.value)} placeholder="Ej: 3.2" className={CAMPO} />
+          </div>
+          <div>
+            <label htmlFor="plazo" className="block text-sm font-medium text-fg mb-1.5">Plazo (años)</label>
+            <input id="plazo" type="number" step="1" min="1" max="50" value={plazo}
+              onChange={(e) => setPlazo(e.target.value)} placeholder="Ej: 25" className={CAMPO} />
           </div>
         </div>
-        <div>
-          <label className="block text-sm font-medium text-fg mb-2">Modo de cálculo</label>
-          <div className="flex gap-2">
-            <button type="button" onClick={() => setModo("anadir")}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all flex-1 " + (modo === "anadir" ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg")}>Añadir IVA</button>
-            <button type="button" onClick={() => setModo("incluir")}
-              className={"px-4 py-2 rounded-lg text-sm font-medium border transition-all flex-1 " + (modo === "incluir" ? "bg-accent text-white border-accent" : "bg-bg text-muted border-border hover:text-fg")}>IVA incluido</button>
-          </div>
-        </div>
-        {error && (<p className="text-sm" style={{ color: "oklch(55% 0.22 25)" }}>{error}</p>)}
+        {error && <p className="text-sm text-error" role="alert">{error}</p>}
         <div className="flex gap-3">
-          <button type="submit" disabled={isSubmitting} className="btn-primary disabled:opacity-60 disabled:cursor-not-allowed">
-            {isSubmitting ? "Calculando..." : "Calcular Amortización"}
-          </button>
-          {resultado && (<button type="button" onClick={handleReset} className="btn-secondary">Reiniciar</button>)}
+          <button type="submit" className="btn-primary">Calcular amortización</button>
+          {resultado && <button type="button" onClick={handleReset} className="btn-secondary">Reiniciar</button>}
         </div>
       </form>
+
       {resultado && (
-        <div className="mt-6 card p-6 animate-slide-up">
-          <div className="space-y-2">
-            {resultado.resultados.map((r, i) => (
-              <div key={i} className={"flex items-center justify-between py-3 px-4 rounded-lg " + (i === resultado.resultados.length - 1 ? "bg-accent/10 border border-accent/20" : "bg-bg")}>
-                <span className="text-sm text-muted">{r.label}</span>
-                <span className="font-display font-semibold text-fg">{r.value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <>
+          <ResultadoPanel resultados={resultado.resultados} />
+
+          <button
+            type="button"
+            onClick={() => setVerCuadro((v) => !v)}
+            aria-expanded={verCuadro}
+            className="mt-4 text-sm text-accent hover:underline"
+          >
+            {verCuadro ? "Ocultar cuadro de amortización" : "Ver cuadro de amortización completo"}
+          </button>
+
+          {verCuadro && (
+            <div className="mt-4 card p-4 overflow-x-auto max-h-[28rem] overflow-y-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead className="sticky top-0 bg-surface">
+                  <tr>
+                    {["Mes", "Cuota", "Intereses", "Capital", "Pendiente"].map((h) => (
+                      <th key={h} scope="col" className="text-right first:text-left font-semibold text-fg py-2 px-2 border-b border-border-strong whitespace-nowrap">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {resultado.cuadro.map((f) => (
+                    <tr key={f.periodo}>
+                      <td className="text-muted py-1.5 px-2 border-b border-border">{f.periodo}</td>
+                      <td className="text-muted py-1.5 px-2 border-b border-border text-right whitespace-nowrap">{euros(f.cuota)}</td>
+                      <td className="text-muted py-1.5 px-2 border-b border-border text-right whitespace-nowrap">{euros(f.intereses)}</td>
+                      <td className="text-muted py-1.5 px-2 border-b border-border text-right whitespace-nowrap">{euros(f.capital)}</td>
+                      <td className="text-fg py-1.5 px-2 border-b border-border text-right whitespace-nowrap">{euros(f.pendiente)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

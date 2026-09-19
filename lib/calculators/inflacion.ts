@@ -1,44 +1,52 @@
 import type { CalculatorResult } from "@/types";
+import { euros, numero } from "@/lib/formato";
 
 export interface InflacionInput {
-  cantidad: number;
-  tipoIVA: number;
-  modo: "anadir" | "incluir";
+  /** Importe de partida, en euros de hoy. */
+  importe: number;
+  /** Inflación media anual, en porcentaje. */
+  inflacion: number;
+  /** Número de años transcurridos. */
+  anios: number;
 }
 
 export interface InflacionResult {
-  sinIVA: number;
-  conIVA: number;
-  iva: number;
-  tipoIVA: number;
+  /** Poder adquisitivo del importe tras el periodo. */
+  valorReal: number;
+  /** Cantidad necesaria en el futuro para comprar lo mismo que hoy. */
+  equivalente: number;
+  perdida: number;
+  /** Porcentaje de poder adquisitivo perdido. */
+  perdidaPorcentaje: number;
   resultados: CalculatorResult[];
 }
 
-export const INFLACION_TIPOIVA = [
-  { value: 21, label: "General (21%)" },
-  { value: 10, label: "Reducido (10%)" },
-  { value: 4, label: "Superreducido (4%)" },
-];
-
+/**
+ * Calcula el efecto de la inflación sobre un importe a lo largo del tiempo.
+ *
+ * Se ofrecen las dos lecturas complementarias: cuánto valdrá realmente ese
+ * dinero (poder adquisitivo) y cuánto haría falta para mantener la misma
+ * capacidad de compra.
+ */
 export function calcularInflacion(input: InflacionInput): InflacionResult {
-  const { cantidad, tipoIVA, modo } = input;
-  const tipo = tipoIVA / 100;
-  if (modo === "anadir") {
-    const iva = cantidad * tipo;
-    const conIVA = cantidad + iva;
-    return { sinIVA: cantidad, conIVA, iva, tipoIVA,
-      resultados: [
-        { label: "Importe sin IVA", value: cantidad.toFixed(2) + " €" },
-        { label: "IVA (" + tipoIVA + "%)", value: iva.toFixed(2) + " €" },
-        { label: "Importe con IVA", value: conIVA.toFixed(2) + " €" },
-      ],};
-  }
-  const sinIVA = cantidad / (1 + tipo);
-  const iva = cantidad - sinIVA;
-  return { sinIVA, conIVA: cantidad, iva, tipoIVA,
+  const { importe, inflacion, anios } = input;
+  const factor = Math.pow(1 + inflacion / 100, anios);
+
+  const valorReal = importe / factor;
+  const equivalente = importe * factor;
+  const perdida = importe - valorReal;
+  const perdidaPorcentaje = importe === 0 ? 0 : (perdida / importe) * 100;
+
+  return {
+    valorReal,
+    equivalente,
+    perdida,
+    perdidaPorcentaje,
     resultados: [
-      { label: "Importe sin IVA", value: sinIVA.toFixed(2) + " €" },
-      { label: "IVA (" + tipoIVA + "%)", value: iva.toFixed(2) + " €" },
-      { label: "Importe con IVA", value: cantidad.toFixed(2) + " €" },
-    ],};
+      { label: `Poder de compra dentro de ${numero(anios, 0)} años`, value: euros(valorReal) },
+      { label: "Pérdida de poder adquisitivo", value: euros(perdida) },
+      { label: "Porcentaje perdido", value: numero(perdidaPorcentaje, 1) + " %" },
+      { label: "Necesitarás tener", value: euros(equivalente) },
+    ],
+  };
 }

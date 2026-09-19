@@ -1,39 +1,58 @@
 import type { CalculatorResult } from "@/types";
+import { numero } from "@/lib/formato";
+
+export type Sexo = "hombre" | "mujer";
 
 export interface TMBInput {
   peso: number;
   altura: number;
+  edad: number;
+  sexo: Sexo;
+  /** Factor de actividad física; ver NIVELES_ACTIVIDAD. */
+  actividad: number;
 }
 
 export interface TMBResult {
+  /** Tasa metabólica basal, en kcal/día. */
   tmb: number;
-  clasificacion: string;
-  color: string;
+  /** Gasto energético total diario, en kcal/día. */
+  gastoTotal: number;
   resultados: CalculatorResult[];
 }
 
-function clasificarTMB(valor: number): { clasificacion: string; color: string } {
-  if (valor < 16) return { clasificacion: "Delgadez severa", color: "oklch(55% 0.2 30)" };
-  if (valor < 17) return { clasificacion: "Delgadez moderada", color: "oklch(60% 0.18 40)" };
-  if (valor < 18.5) return { clasificacion: "Delgadez leve", color: "oklch(65% 0.15 50)" };
-  if (valor < 25) return { clasificacion: "Normal", color: "oklch(55% 0.15 145)" };
-  if (valor < 30) return { clasificacion: "Sobrepeso", color: "oklch(60% 0.18 80)" };
-  if (valor < 35) return { clasificacion: "Obesidad grado I", color: "oklch(55% 0.2 30)" };
-  if (valor < 40) return { clasificacion: "Obesidad grado II", color: "oklch(50% 0.22 25)" };
-  if (valor < Infinity) return { clasificacion: "Obesidad grado III", color: "oklch(45% 0.25 20)" };
-  return { clasificacion: "Desconocido", color: "oklch(50% 0 0)" };
-}
+export const NIVELES_ACTIVIDAD = [
+  { value: 1.2, label: "Sedentario (poco o ningún ejercicio)" },
+  { value: 1.375, label: "Ligero (ejercicio 1-3 días/semana)" },
+  { value: 1.55, label: "Moderado (ejercicio 3-5 días/semana)" },
+  { value: 1.725, label: "Alto (ejercicio 6-7 días/semana)" },
+  { value: 1.9, label: "Muy alto (trabajo físico o doble sesión)" },
+];
 
+export const SEXOS: { value: Sexo; label: string }[] = [
+  { value: "hombre", label: "Hombre" },
+  { value: "mujer", label: "Mujer" },
+];
+
+/**
+ * Tasa metabólica basal por la ecuación de Mifflin-St Jeor, que es la que
+ * mejor se ajusta en población general según las revisiones de la Academy
+ * of Nutrition and Dietetics, y gasto total aplicando el factor de actividad.
+ */
 export function calcularTMB(input: TMBInput): TMBResult {
-  const { peso, altura } = input;
-  const resultado = peso / ((altura / 100) ** 2);
-  const redondeado = Math.round(resultado * 10) / 10;
-  const { clasificacion, color } = clasificarTMB(redondeado);
-  const resultados: CalculatorResult[] = [
-    { label: "Tu TMB", value: redondeado.toString() },
-    { label: "Clasificación", value: clasificacion },
-    { label: "Peso saludable mínimo", value: Math.round((18.5 * ((altura / 100) ** 2)) * 10) / 10 + " kg" },
-    { label: "Peso saludable máximo", value: Math.round((24.9 * ((altura / 100) ** 2)) * 10) / 10 + " kg" },
-  ];
-  return { tmb: redondeado, clasificacion, color, resultados };
+  const { peso, altura, edad, sexo, actividad } = input;
+
+  const base = 10 * peso + 6.25 * altura - 5 * edad;
+  const tmb = sexo === "hombre" ? base + 5 : base - 161;
+  const gastoTotal = tmb * actividad;
+
+  return {
+    tmb,
+    gastoTotal,
+    resultados: [
+      { label: "Tasa metabólica basal (en reposo)", value: numero(tmb, 0) + " kcal/día" },
+      { label: "Déficit moderado (−500 kcal)", value: numero(gastoTotal - 500, 0) + " kcal/día" },
+      { label: "Superávit moderado (+300 kcal)", value: numero(gastoTotal + 300, 0) + " kcal/día" },
+      { label: "Gasto energético total diario", value: numero(gastoTotal, 0) + " kcal/día" },
+    ],
+  };
 }

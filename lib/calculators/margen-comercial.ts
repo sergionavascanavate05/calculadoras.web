@@ -1,44 +1,50 @@
 import type { CalculatorResult } from "@/types";
+import { euros, numero } from "@/lib/formato";
 
 export interface MargenComercialInput {
-  cantidad: number;
-  tipoIVA: number;
-  modo: "anadir" | "incluir";
+  /** Coste de adquisición o producción, sin IVA. */
+  coste: number;
+  /** Precio de venta, sin IVA. */
+  precio: number;
 }
 
 export interface MargenComercialResult {
-  sinIVA: number;
-  conIVA: number;
-  iva: number;
-  tipoIVA: number;
+  beneficio: number;
+  /** Margen sobre el precio de venta, en porcentaje. */
+  margen: number;
+  /** Marcaje sobre el coste (markup), en porcentaje. */
+  marcaje: number;
+  /** Multiplicador que hay que aplicar al coste para llegar al precio. */
+  multiplicador: number;
   resultados: CalculatorResult[];
 }
 
-export const MARGEN_COMERCIAL_TIPOIVA = [
-  { value: 21, label: "General (21%)" },
-  { value: 10, label: "Reducido (10%)" },
-  { value: 4, label: "Superreducido (4%)" },
-];
+/**
+ * Calcula margen y marcaje a partir de coste y precio de venta.
+ *
+ * El margen se calcula sobre el PRECIO y el marcaje sobre el COSTE: son
+ * dos indicadores distintos y confundirlos es el error habitual al fijar
+ * precios. Ambos importes deben introducirse sin IVA.
+ */
+export function calcularMargenComercial(
+  input: MargenComercialInput
+): MargenComercialResult {
+  const { coste, precio } = input;
+  const beneficio = precio - coste;
+  const margen = precio === 0 ? 0 : (beneficio / precio) * 100;
+  const marcaje = coste === 0 ? 0 : (beneficio / coste) * 100;
+  const multiplicador = coste === 0 ? 0 : precio / coste;
 
-export function calcularMargenComercial(input: MargenComercialInput): MargenComercialResult {
-  const { cantidad, tipoIVA, modo } = input;
-  const tipo = tipoIVA / 100;
-  if (modo === "anadir") {
-    const iva = cantidad * tipo;
-    const conIVA = cantidad + iva;
-    return { sinIVA: cantidad, conIVA, iva, tipoIVA,
-      resultados: [
-        { label: "Importe sin IVA", value: cantidad.toFixed(2) + " €" },
-        { label: "IVA (" + tipoIVA + "%)", value: iva.toFixed(2) + " €" },
-        { label: "Importe con IVA", value: conIVA.toFixed(2) + " €" },
-      ],};
-  }
-  const sinIVA = cantidad / (1 + tipo);
-  const iva = cantidad - sinIVA;
-  return { sinIVA, conIVA: cantidad, iva, tipoIVA,
+  return {
+    beneficio,
+    margen,
+    marcaje,
+    multiplicador,
     resultados: [
-      { label: "Importe sin IVA", value: sinIVA.toFixed(2) + " €" },
-      { label: "IVA (" + tipoIVA + "%)", value: iva.toFixed(2) + " €" },
-      { label: "Importe con IVA", value: cantidad.toFixed(2) + " €" },
-    ],};
+      { label: "Beneficio por unidad", value: euros(beneficio) },
+      { label: "Margen (sobre precio de venta)", value: numero(margen, 2) + " %" },
+      { label: "Marcaje / markup (sobre coste)", value: numero(marcaje, 2) + " %" },
+      { label: "Multiplicador sobre coste", value: "× " + numero(multiplicador, 3) },
+    ],
+  };
 }

@@ -1,32 +1,30 @@
 import type { MetadataRoute } from "next";
+import { CALCULATOR_REGISTRY } from "@/lib/calculators";
+import { SITIO } from "@/lib/config";
+import { BLOG_SLUGS } from "@/lib/blog";
+
+/**
+ * Sitemap derivado del registro de calculadoras, para que no se
+ * desincronice al añadir o quitar herramientas.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://calculadoras-online.com";
-  const staticPages = [
-    { path: "", lastModified: new Date(), priority: 1.0 },
-    { path: "/imc", lastModified: new Date(), priority: 0.9 },
-    { path: "/iva", lastModified: new Date(), priority: 0.9 },
-    { path: "/hipoteca", lastModified: new Date(), priority: 0.9 },
-    { path: "/interes-compuesto", lastModified: new Date(), priority: 0.9 },
-    { path: "/prestamo", lastModified: new Date(), priority: 0.9 },
-    { path: "/amortizacion", lastModified: new Date(), priority: 0.9 },
-    { path: "/descuento", lastModified: new Date(), priority: 0.9 },
-    { path: "/porcentaje", lastModified: new Date(), priority: 0.9 },
-    { path: "/propina", lastModified: new Date(), priority: 0.9 },
-    { path: "/edad", lastModified: new Date(), priority: 0.9 },
-    { path: "/dias-entre-fechas", lastModified: new Date(), priority: 0.9 },
-    { path: "/calorias", lastModified: new Date(), priority: 0.9 },
-    { path: "/peso-ideal", lastModified: new Date(), priority: 0.9 },
-    { path: "/tmb", lastModified: new Date(), priority: 0.9 },
-    { path: "/fcm", lastModified: new Date(), priority: 0.9 },
-    { path: "/iva-inverso", lastModified: new Date(), priority: 0.9 },
-    { path: "/inflacion", lastModified: new Date(), priority: 0.9 },
-    { path: "/consumo-combustible", lastModified: new Date(), priority: 0.9 },
-    { path: "/divisas", lastModified: new Date(), priority: 0.9 },
-    { path: "/margen-comercial", lastModified: new Date(), priority: 0.9 },
-    { path: "/beneficio", lastModified: new Date(), priority: 0.9 },
-    { path: "/blog", lastModified: new Date(), priority: 0.7 },
-    { path: "/blog/que-es-el-imc-y-como-se-calcula", lastModified: new Date(), priority: 0.6 },
-    { path: "/blog/tipos-de-iva-en-espana-2026", lastModified: new Date(), priority: 0.6 },
+  const ahora = new Date();
+  const base = SITIO.url.replace(/\/$/, "");
+
+  const url = (
+    ruta: string,
+    priority: number,
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]
+  ) => ({ url: base + ruta, lastModified: ahora, changeFrequency, priority });
+
+  return [
+    url("", 1.0, "weekly"),
+    ...CALCULATOR_REGISTRY.map((c) => url(c.slug, 0.9, "monthly")),
+    url("/blog", 0.6, "weekly"),
+    ...BLOG_SLUGS.map((slug) => url(`/blog/${slug}`, 0.5, "monthly")),
+    url("/privacidad", 0.3, "yearly"),
+    url("/cookies", 0.3, "yearly"),
+    url("/aviso-legal", 0.3, "yearly"),
+    url("/contacto", 0.4, "yearly"),
   ];
-  return staticPages.map((page) => ({ url: baseUrl + page.path, lastModified: page.lastModified, changeFrequency: "daily" as const, priority: page.priority }));
 }

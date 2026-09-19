@@ -1,44 +1,52 @@
 import type { CalculatorResult } from "@/types";
+import { numero } from "@/lib/formato";
 
 export interface DivisasInput {
+  /** Cantidad a convertir, en la divisa de origen. */
   cantidad: number;
-  tipoIVA: number;
-  modo: "anadir" | "incluir";
+  /** Unidades de divisa destino por cada unidad de origen. */
+  tasa: number;
+  /** Comisión o diferencial aplicado por la entidad, en porcentaje. */
+  comision: number;
 }
 
 export interface DivisasResult {
-  sinIVA: number;
-  conIVA: number;
-  iva: number;
-  tipoIVA: number;
+  /** Conversión a la tasa introducida, sin comisiones. */
+  bruto: number;
+  /** Importe efectivamente recibido tras aplicar la comisión. */
+  neto: number;
+  comisionAplicada: number;
+  /** Tasa real resultante una vez descontada la comisión. */
+  tasaEfectiva: number;
   resultados: CalculatorResult[];
 }
 
-export const DIVISAS_TIPOIVA = [
-  { value: 21, label: "General (21%)" },
-  { value: 10, label: "Reducido (10%)" },
-  { value: 4, label: "Superreducido (4%)" },
-];
-
+/**
+ * Convierte un importe entre divisas aplicando una tasa introducida por
+ * el usuario y el diferencial que cobra la entidad.
+ *
+ * No consulta cotizaciones en tiempo real: la tasa la aporta quien calcula.
+ * Esto permite comparar la tasa interbancaria con la que ofrece realmente
+ * un banco o una casa de cambio, que es donde está el coste oculto.
+ */
 export function calcularDivisas(input: DivisasInput): DivisasResult {
-  const { cantidad, tipoIVA, modo } = input;
-  const tipo = tipoIVA / 100;
-  if (modo === "anadir") {
-    const iva = cantidad * tipo;
-    const conIVA = cantidad + iva;
-    return { sinIVA: cantidad, conIVA, iva, tipoIVA,
-      resultados: [
-        { label: "Importe sin IVA", value: cantidad.toFixed(2) + " €" },
-        { label: "IVA (" + tipoIVA + "%)", value: iva.toFixed(2) + " €" },
-        { label: "Importe con IVA", value: conIVA.toFixed(2) + " €" },
-      ],};
-  }
-  const sinIVA = cantidad / (1 + tipo);
-  const iva = cantidad - sinIVA;
-  return { sinIVA, conIVA: cantidad, iva, tipoIVA,
+  const { cantidad, tasa, comision } = input;
+
+  const bruto = cantidad * tasa;
+  const comisionAplicada = bruto * (comision / 100);
+  const neto = bruto - comisionAplicada;
+  const tasaEfectiva = cantidad === 0 ? 0 : neto / cantidad;
+
+  return {
+    bruto,
+    neto,
+    comisionAplicada,
+    tasaEfectiva,
     resultados: [
-      { label: "Importe sin IVA", value: sinIVA.toFixed(2) + " €" },
-      { label: "IVA (" + tipoIVA + "%)", value: iva.toFixed(2) + " €" },
-      { label: "Importe con IVA", value: cantidad.toFixed(2) + " €" },
-    ],};
+      { label: "Conversión a la tasa indicada", value: numero(bruto, 2) },
+      { label: `Comisión (${numero(comision, 2)} %)`, value: "− " + numero(comisionAplicada, 2) },
+      { label: "Tasa efectiva real", value: numero(tasaEfectiva, 4) },
+      { label: "Recibes", value: numero(neto, 2) },
+    ],
+  };
 }

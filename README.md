@@ -1,162 +1,133 @@
-# Calculadoras Online — Design System Package
+# Calculadoras Online
 
-A complete Open Design design system extracted from the "Quiero Crear Una Web Moderna Enfocada" project (d131e282-ce88-4655-a566-01618ea15276). This package documents the visual language, components, tokens, and interaction patterns used by **Calculadoras Online**, a Spanish-language SEO-optimised website hosting free online calculator tools.
+Sitio de 21 calculadoras en español (finanzas, salud y uso general), construido con Next.js 14, TypeScript y Tailwind. Monetización prevista: Google AdSense.
 
-## Product Overview
+---
 
-**Calculadoras Online** is a utility website that provides free online calculators (IMC/BMI, IVA/VAT) to Spanish-speaking users arriving from Google Search. The product prioritises:
+## ⚠️ Antes de publicar: lo que solo puedes hacer tú
 
-- **Speed** — Lightweight system font stack, minimal CSS, fast page loads
-- **Clarity** — One tool per page, clear form labels, specific error messages
-- **Monetisation** — Google AdSense integration with slot-based AdUnit component
-- **Extensibility** — `CALCULATOR_REGISTRY` pattern supporting 100+ calculators
-- **SEO** — Schema.org WebSite, OpenGraph, Twitter Cards, sitemap, robots.txt
+Hay cinco cosas que yo no puedo hacer por ti. Sin ellas el sitio no genera ni un euro.
 
-### Product Context
+### 1. Rellenar tus datos en `lib/config.ts`
 
-| Attribute | Value |
-|---|---|
-| Brand | Calculadoras Online |
-| URL | https://calculadoras-online.com |
-| Language | es-ES |
-| Framework | Next.js 14 + TypeScript + Tailwind CSS 3 |
-| Monetisation | Google AdSense |
-| Calculators | IMC (BMI), IVA (VAT) — extensible registry |
-| Dark mode | localStorage + prefers-color-scheme |
+Abre `lib/config.ts` y sustituye los cuatro valores que empiezan por `PENDIENTE`:
 
-## Source context
+- `titular` — tu nombre y apellidos
+- `nif` — tu NIF
+- `domicilio` — tu domicilio
+- `email` — un correo de contacto
 
-The design system was extracted from 29 source files in the project workspace. Key evidence:
+Son **obligatorios por ley** (artículo 10 de la LSSI-CE para el aviso legal, y el RGPD para la política de privacidad). Además AdSense exige una política de privacidad válida. Mientras estén sin rellenar, el sitio muestra un aviso amarillo en las páginas legales para que no se te olvide.
 
-| Evidence | Location | What it provides |
-|---|---|---|
-| Color tokens | `app/globals.css` | Light + dark OKLCH variables |
-| Typography | `tailwind.config.ts`, `app/globals.css` | Font stacks, type scale, font smoothing |
-| Components | `components/Header.tsx`, `Footer.tsx`, `CalculatorCard.tsx`, `ThemeToggle.tsx`, `AdUnit.tsx` | All UI components |
-| Forms | `app/imc/IMCForm.tsx`, `app/iva/IVAForm.tsx` | Form layout, validation, result display |
-| Calculator logic | `lib/calculators/imc.ts`, `lib/calculators/iva.ts` | BMI formula, VAT calculation |
-| SEO | `app/layout.tsx`, `app/robots.ts`, `app/sitemap.ts` | Metadata, Schema.org, sitemap |
-| Pages | `app/page.tsx`, `app/imc/page.tsx`, `app/iva/page.tsx`, `app/blog/page.tsx`, `app/not-found.tsx` | Page layouts |
-| Types | `types/index.ts` | CalculatorMeta, BlogPostMeta, CalculatorResult |
+No los he inventado yo a propósito: unos datos falsos en un aviso legal son peores que no tenerlo.
 
-## Package Contents
+### 2. Comprar un dominio (~10-15 €/año)
 
-| Path | Description |
-|---|---|
-| `DESIGN.md` | Full 9-section design system documentation |
-| `colors_and_type.css` | Tokenized CSS custom properties (OKLCH + hex, light + dark) |
-| `SKILL.md` | Open Design skill definition with YAML frontmatter |
-| `context/provenance.md` | Source project provenance and extraction notes |
-| `assets/` | 6 preserved SVG icons (imc, iva, moon, sun, hamburger, close) |
-| `build/` | 4 runtime build assets (icon-imc, icon-iva, icon-moon, icon-sun) |
-| `templates/` | Arquitectura reutilizable + 4 plantillas para generar nuevas calculadoras |
-| `scripts/generate-calculators.js` | Generador automático: crea todos los archivos desde `calculadoras.json` |
-| `calculadoras.json` | Configuración centralizada de todas las calculadoras del sitio |
-| `preview/` | 6 focused preview cards (see manifest below) |
-| `source_examples/` | 7 substantive original component snapshots (CalculatorCard, ThemeToggle, AdUnit, IMC logic, IVA logic, Types, Registry) |
-| `ui_kits/app/` | Applied interface kit with 8 component files |
+**Esto es el único gasto imprescindible y no tiene alternativa gratuita.**
 
-## Preview Manifest
+Google AdSense **no acepta subdominios gratuitos** como `.vercel.app` o `.netlify.app`. Tampoco los aceptan Ezoic, Mediavine ni Media.net. Sin dominio propio, el techo de ingresos publicitarios es exactamente **cero**, por mucho tráfico que consigas.
 
-Every `preview/*.html` card is a focused, self-contained review surface. Open each in the Design Files panel:
+El dominio `calculadoras-online.com` que figura en el código **no está registrado** (no resuelve). Puedes registrar ese u otro en cualquier registrador.
 
-| Preview card | Path | Review purpose | Source-backed components |
-|---|---|---|---|
-| Colors primary | `preview/colors-primary.html` | Full palette: 12 light tokens + 8 dark tokens with OKLCH and hex values | `app/globals.css` |
-| Typography specimens | `preview/typography-specimens.html` | Type scale (h1→meta), font stacks, specimens from real page copy | `tailwind.config.ts`, `app/page.tsx`, `app/imc/page.tsx` |
-| Spacing tokens | `preview/spacing-tokens.html` | Spacing scale (4px→64px), border radius, max-width, Tailwind context table | All component files |
-| Components | `preview/components-buttons.html` | All button variants, inputs, result rows, CalculatorCard | `components/CalculatorCard.tsx`, `app/imc/IMCForm.tsx`, `app/iva/IVAForm.tsx` |
-| Brand assets | `preview/brand-assets.html` | SVG icons, logo, brand identity, SEO metadata table | `assets/*.svg`, `components/Header.tsx`, `app/layout.tsx` |
-| Radius & shadows | `preview/radius-shadows.html` | Border radius tokens, elevation, focus ring, Tailwind context | `app/imc/IMCForm.tsx`, `components/CalculatorCard.tsx` |
+### 3. Crear cuenta en Vercel y desplegar (gratis)
 
-## Preserved assets
-
-- `assets/icon-imc.svg` — Bar chart icon for IMC calculator (from `lib/calculators/index.ts`)
-- `assets/icon-iva.svg` — Line chart icon for IVA calculator (from `lib/calculators/index.ts`)
-- `assets/icon-moon.svg` — Dark mode icon (from `components/ThemeToggle.tsx`)
-- `assets/icon-sun.svg` — Light mode icon (from `components/ThemeToggle.tsx`)
-- `assets/icon-hamburger.svg` — Mobile menu icon (from `components/Header.tsx`)
-- `assets/icon-close.svg` — Close menu icon (from `components/Header.tsx`)
-
-### Templates for new calculators
-
-| File | Description |
-|---|---|
-| `templates/calculator-architecture.md` | Full architecture spec with common patterns, conventions, and checklist |
-| `templates/calculator-logic.ts` | Plantilla de lógica de cálculo (`lib/calculators/[id].ts`) |
-| `templates/calculator-form.tsx` | Plantilla de formulario cliente (`app/[id]/[Id]Form.tsx`) |
-| `calculator-page.tsx` | Plantilla de página con SEO + artículo editorial (`app/[id]/page.tsx`) |
-| `registry-entry.ts` | Plantilla de entrada en el registro (`lib/calculators/index.ts`) |
-
-### Generator
-
-| File | Description |
-|---|---|
-| `calculadoras.json` | Central config — define todas las calculadoras, SEO, campos, lógica y contenido editorial |
-| `scripts/generate-calculators.js` | Script Node.js que lee el JSON y genera todos los archivos automáticamente |
-
-**Uso:**
+El alojamiento sí es gratuito. Necesitas crear la cuenta tú porque yo no puedo registrarme en servicios.
 
 ```bash
-# 1. Añade o edita una calculadora en calculadoras.json
-# 2. Ejecuta:
-npm run generate
+npx vercel
 ```
 
-Esto regenera:
-- `lib/calculators/[id].ts` — lógica de cálculo
-- `app/[id]/[Id]Form.tsx` — formulario interactivo
-- `app/[id]/page.tsx` — página con SEO
-- `lib/calculators/index.ts` — registro + exports
-- `app/sitemap.ts` — entradas del sitemap
+La primera vez te pedirá iniciar sesión. Después, en el panel de Vercel, añade tu dominio en *Settings → Domains* y configura estas dos variables de entorno:
 
-### Build assets
-
-- `build/icon-imc.svg` — Bar chart icon (copy from assets/)
-- `build/icon-iva.svg` — Line chart icon (copy from assets/)
-- `build/icon-moon.svg` — Dark mode icon (copy from assets/)
-- `build/icon-sun.svg` — Light mode icon (copy from assets/)
-
-## ui_kits/app/ — Applied interface kit
-
-The `ui_kits/app/` directory contains 8 component files that demonstrate the design system tokens in context:
-
-| File | Description |
+| Variable | Valor |
 |---|---|
-| `index.html` | Kit launcher with links to all component files |
-| `header.html` | Sticky header with responsive nav and theme toggle |
-| `footer.html` | 3-column footer with calculator, content, and legal links |
-| `calculator-card.html` | CalculatorCard grid component |
-| `imc-form.html` | Full IMC calculator form with interactive JS |
-| `iva-form.html` | Full IVA calculator form with segmented rate selector |
-| `blog-card.html` | Blog post listing card with category and date |
-| `not-found.html` | 404 error page with dual CTAs |
+| `NEXT_PUBLIC_SITE_URL` | `https://tudominio.com` |
+| `NEXT_PUBLIC_ADSENSE_CLIENT` | *(vacío hasta que AdSense te apruebe)* |
 
-## Reuse workflow
+### 4. Solicitar AdSense
 
-### To review the design system
+Solo cuando el dominio esté funcionando y el sitio publicado. Requiere tus datos fiscales y bancarios, que debes introducir tú.
 
-1. Open `preview/index.html` for the combined overview
-2. Inspect individual preview cards from the manifest above
-3. Open `ui_kits/app/index.html` to browse component implementations
+La revisión es **manual** y tarda de unos días a 2-4 semanas. Cuando te aprueben, añade tu ID (`ca-pub-...`) en `NEXT_PUBLIC_ADSENSE_CLIENT` y vuelve a desplegar. El código ya está preparado: los anuncios solo se cargan si esa variable tiene valor.
 
-### To apply the design system to a new project
+### 5. Google Search Console
+
+Ya existe el archivo de verificación en `public/google01ed5f8113c09620.html`. Una vez el dominio esté activo, verifica la propiedad y envía el sitemap: `https://tudominio.com/sitemap.xml`.
+
+Sin esto Google tardará bastante más en descubrir las páginas.
+
+---
+
+## Qué he arreglado
+
+El sitio **no era publicable** tal y como estaba. Los problemas encontrados:
+
+### 8 de 21 calculadoras eran falsas
+
+El script generador las creó duplicando dos plantillas. Decían hacer una cosa y hacían otra:
+
+| Calculadora | Qué hacía en realidad |
+|---|---|
+| Amortización | Calculaba IVA |
+| Beneficio | Calculaba IVA |
+| Divisas | Calculaba IVA |
+| Inflación | Calculaba IVA |
+| Margen comercial | Calculaba IVA |
+| Consumo de combustible | Calculaba un porcentaje |
+| Días entre fechas | Calculaba un porcentaje |
+| Tasa metabólica basal | Calculaba el IMC |
+
+Las ocho están reescritas con su lógica real y verificadas contra valores conocidos.
+
+### Otras correcciones
+
+- **3 calculadoras imprecisas mejoradas**: frecuencia cardíaca (ahora con fórmula de Tanaka y zonas por el método de Karvonen), peso ideal (ahora distingue sexo y muestra cuatro fórmulas), calorías (antes tenía la intensidad fijada a un único valor; ahora se elige la actividad con valores MET reales).
+- **11 meta descriptions equivocadas**: iban a Google tal cual. Por ejemplo, «días entre fechas» decía *«Calcula qué porcentaje representa un valor respecto a un total»*.
+- **El blog no existía como páginas**: la carpeta se llamaba `_slug_` en vez de `[slug]`, y en Next.js las carpetas que empiezan por `_` quedan excluidas del enrutado. El sitemap declaraba a Google dos URLs que devolvían 404.
+- **Entidades HTML visibles**: el contenido del blog mostraba literalmente `&lt;18.5` en lugar de `<18.5`.
+- **Páginas legales inexistentes**: el footer enlazaba a `/privacidad` y `/contacto`, que daban 404. Creadas, más aviso legal y política de cookies.
+- **Contenido demasiado breve**: las páginas tenían 80-120 palabras, justo el perfil que AdSense rechaza por «contenido de poco valor». Ahora entre 700 y 1.000 por calculadora, con tablas, preguntas frecuentes y fuentes citadas.
+- **El build fallaba**: el chequeo de tipos entraba en `trading-bot/`, un proyecto independiente que convive en la misma carpeta. Excluido en `tsconfig.json`.
+- **Sitemap desincronizado**: estaba escrito a mano. Ahora se genera desde el registro de calculadoras.
+- **Separador de millares**: los importes de cuatro cifras salían sin punto (`3131,70 €` junto a `77.666,18 €`).
+
+---
+
+## Arquitectura
+
+```
+app/<slug>/page.tsx        Página de cada calculadora (generada desde el registro)
+app/<slug>/<X>Form.tsx     Formulario cliente
+lib/calculators/index.ts   Registro: id, título, descripción, icono, categoría
+lib/calculators/<slug>.ts  Lógica de cálculo pura, sin dependencias de React
+lib/content/<slug>.ts      Contenido editorial: guía, tablas, FAQ, fuentes
+lib/blog.ts                Artículos del blog (fuente única)
+lib/formato.ts             Formato español y validación compartida
+lib/config.ts              Datos del titular  ← RELLENAR
+components/                UI compartida
+```
+
+**Para añadir una calculadora**: crea la lógica en `lib/calculators/`, el contenido en `lib/content/`, añade la entrada al registro y al índice de contenido, y crea la carpeta en `app/`. El sitemap y la portada se actualizan solos.
+
+## Comandos
 
 ```bash
-# Apply via Open Design
-od design-system apply user:calculadoras-online-design-system
-
-# Or manually import
-cp colors_and_type.css <your-project>/styles/
+npm run dev
 ```
 
-### To extend with new calculators
+```bash
+npm run build
+```
 
-1. Add a calculator entry to `lib/calculators/index.ts` following the `CALCULATOR_REGISTRY` pattern
-2. Create a form component following `IMCForm.tsx` or `IVAForm.tsx` patterns
-3. Create a page following `app/imc/page.tsx` or `app/iva/page.tsx` patterns
-4. The design system tokens apply automatically via Tailwind's `theme.extend.colors`
+---
 
-## License
+## Expectativas realistas
 
-Design system extracted from user project "Quiero Crear Una Web Moderna Enfocada" (d131e282-ce88-4655-a566-01618ea15276).
+Te lo digo sin adornos porque es tu dinero y tu tiempo:
+
+- **Los primeros meses lo más probable es 0 €.** Un sitio nuevo tarda entre 6 y 12 meses en posicionar, y las palabras clave de calculadoras están muy disputadas por sitios grandes y antiguos.
+- **AdSense puede rechazarte igualmente.** He eliminado los motivos evidentes de rechazo, pero la revisión es manual y discrecional.
+- **El tráfico español paga poco**: entre 1 € y 5 € por cada 1.000 visitas en contenido general, algo más en finanzas. Para cubrir una suscripción de 20 €/mes harían falta del orden de 5.000-20.000 visitas mensuales.
+- **Lo que juega a tu favor**: el trabajo ya está hecho y el coste de mantenerlo es de unos 10-15 € al año. No necesitas hablar con nadie ni vender nada.
+
+Si en 6 meses el tráfico no despega, lo sensato es revisar la estrategia de contenidos, no seguir esperando.
