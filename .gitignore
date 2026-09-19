@@ -24,3 +24,5 @@ pnpm-debug.log*
 # Sistema
 .DS_Store
 Thumbs.db
+# Datos de plugins de Claude Code (no son del proyecto)
+.claude/data/
